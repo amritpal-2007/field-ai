@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIELDAI — Precision Agriculture & Crop Intelligence for Indian Farmers</title>
+  
+  <!-- AI Generated Farmer In Field Logo as Favicon -->
+  <link rel="icon" type="image/png" href="/static/img/logo.png">
+  
+  <!-- Modern Clean Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              50: '#F2F7F4',
+              100: '#E1EDE6',
+              600: '#1A523A',
+              700: '#164330',
+              800: '#133E2B',
+              900: '#0D2C1E'
+            },
+            leaf: {
+              500: '#22C55E',
+              600: '#16A34A',
+              700: '#15803D'
+            },
+            cream: {
+              50: '#FCFCF9',
+              100: '#FBFBF7',
+              200: '#F2EFE9',
+              300: '#E8E4DA',
+              400: '#D5D0C2'
+            },
+            charcoal: {
+              800: '#2D312C',
+              900: '#1C1E1B'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <style>
+    @media print {
+      body * { visibility: hidden !important; }
+      #kisan-invoice-modal, #printable-invoice-content, #printable-invoice-content * {
+        visibility: visible !important;
+      }
+      #kisan-invoice-modal {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        background: white !important;
+        padding: 0 !important;
+        display: block !important;
+      }
+      #printable-invoice-content {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+      }
+      #kisan-invoice-modal button { display: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-[#FBFBF7] text-[#1C1E1B] antialiased selection:bg-[#133E2B] selection:text-white pb-24 md:pb-12">
+
+  <!-- ================= TOP STICKY HEADER ================= -->
+  <header class="sticky top-0 z-40 glass-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- AI Generated Farmer Logo & Brand Emblem -->
+      <a href="#home" class="flex items-center space-x-3 group" onclick="switchTab('home')">
+        <div class="relative w-12 h-12 rounded-xl overflow-hidden shadow-sm group-hover:scale-105 transition-transform border border-[#133E2B]/20 bg-[#133E2B]">
+          <img src="/static/img/logo.png" alt="FIELDAI Farmer In Field Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <div class="flex items-center space-x-1.5">
+            <span class="text-xl font-extrabold tracking-tight text-[#133E2B]">FIELDAI</span>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#E8F5E9] text-[#16A34A] border border-[#C8E6C9]">KhetAI</span>
+          </div>
+          <p class="text-[11px] text-[#575E54] tracking-tight font-medium" data-i18n="brand_subtitle">Smart Indian Agri-Tech</p>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <a href="#home" class="nav-link py-2 px-3 text-sm font-semibold transition border-b-2" data-tab="home" data-i18n="nav_home">Home</a>
+        <a href="#diagnose" class="nav-link py-2 px-3 text-sm transition border-b-2 border-transparent" data-tab="diagnose" data-i18n="nav_diagnose">Crop Doctor</a>
+        <a href="#assistant" class="nav-link py-2 px-3 text-sm transition border-b-2 border-transparent" data-tab="assistant" data-i18n="nav_assistant">AI Assistant</a>
+        <a href="#weather" class="nav-link py-2 px-3 text-sm transition border-b-2 border-transparent" data-tab="weather" data-i18n="nav_weather">Weather</a>
+        <a href="#mandi" class="nav-link py-2 px-3 text-sm transition border-b-2 border-transparent" data-tab="mandi" data-i18n="nav_mandi">Mandi Prices</a>
+        <a href="#shop" class="nav-link py-2 px-3 text-sm transition border-b-2 border-transparent" data-tab="shop" data-i18n="nav_shop">Shop</a>
+        <a href="#farm" class="nav-link py-2 px-3 text-sm transition border-b-2 border-transparent" data-tab="farm" data-i18n="nav_my_farm">My Farm</a>
+      </nav>
+
+      <!-- Right Header Tools -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        
+        <!-- Language Selector Dropdown -->
+        <div class="relative">
+          <button id="lang-dropdown-btn" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-white border border-[#E4E0D5] text-xs font-semibold text-[#1C1E1B] hover:bg-[#F2EFE9] transition shadow-sm">
+            <svg class="w-4 h-4 text-[#16A34A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+            <span id="current-lang-label">English</span>
+            <svg class="w-3.5 h-3.5 text-[#575E54]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          
+          <div id="lang-dropdown-menu" class="hidden absolute right-0 mt-2 w-44 rounded-xl bg-white border border-[#E4E0D5] shadow-lg py-1.5 z-50">
+            <button data-lang="en" class="w-full text-left px-4 py-2 text-xs font-semibold hover:bg-[#F2EFE9] flex items-center justify-between text-[#1C1E1B]">
+              <span>English (Default)</span>
+              <span class="text-[10px] text-[#858D82]">EN</span>
+            </button>
+            <button data-lang="pa" class="w-full text-left px-4 py-2 text-xs font-semibold hover:bg-[#F2EFE9] flex items-center justify-between text-[#133E2B]">
+              <span>ਪੰਜਾਬੀ (Punjabi)</span>
+              <span class="text-[10px] text-[#16A34A] font-bold">PA</span>
+            </button>
+            <button data-lang="hi" class="w-full text-left px-4 py-2 text-xs font-semibold hover:bg-[#F2EFE9] flex items-center justify-between text-[#133E2B]">
+              <span>हिन्दी (Hindi)</span>
+              <span class="text-[10px] text-[#16A34A] font-bold">HI</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Notifications Bell -->
+        <button id="notif-bell-btn" onclick="toggleNotifDrawer()" class="relative p-2 rounded-xl bg-white border border-[#E4E0D5] text-[#575E54] hover:text-[#133E2B] hover:bg-[#F2EFE9] transition shadow-sm cursor-pointer" title="Alerts & Advisories">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#DC2626]"></span>
+        </button>
+
+        <!-- Shopping Cart Trigger -->
+        <button id="open-cart-btn" onclick="openCartDrawer()" class="relative p-2 rounded-xl bg-white border border-[#E4E0D5] text-[#575E54] hover:text-[#133E2B] hover:bg-[#F2EFE9] transition shadow-sm cursor-pointer" title="Cart">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+          <span id="cart-count-badge" class="hidden absolute -top-1.5 -right-1.5 bg-[#133E2B] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </button>
+
+        <!-- Farmer Account Button / Login Flow -->
+        <button id="user-profile-btn" onclick="if(state.activeFarmer) openFarmerProfileDrawer(); else openAuthLoginModal();" class="flex items-center space-x-2 p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-[#133E2B] text-white text-xs font-semibold hover:bg-[#1A523A] transition shadow-sm cursor-pointer">
+          <div id="user-avatar-initial" class="w-6 h-6 rounded-full bg-[#22C55E] flex items-center justify-center text-white text-xs font-bold">G</div>
+          <span id="user-profile-name" class="hidden sm:inline">Gurpreet</span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT SECTIONS ================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+    <!-- 1. LANDING PAGE SECTION -->
+    <section id="section-home" class="app-section space-y-20">
+      
+      <!-- HERO SECTION -->
+      <div class="relative pt-4 pb-8 lg:py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Hero Left Copy -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-[#EBF5EF] border border-[#D1E7D9] text-[#133E2B] text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-[#16A34A] pulse-dot"></span>
+              <span data-i18n="hero_badge">Government ICAR & PAU Aligned Agricultural Intelligence</span>
+            </div>
+
+            <h1 class="hero-headline text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#133E2B] tracking-tight leading-[1.15]" data-i18n="hero_title">
+              Smarter Farming.<br>
+              <span class="text-[#16A34A]">Healthier Crops.</span><br>
+              Better Decisions.
+            </h1>
+
+            <p class="text-base sm:text-lg text-[#575E54] max-w-xl leading-relaxed" data-i18n="hero_desc">
+              Detect crop diseases, understand weather, track mandi prices and get AI-powered farming guidance — all from one place.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <button data-cta-tab="diagnose" class="px-6 py-3.5 rounded-xl bg-[#133E2B] text-white text-sm font-bold hover:bg-[#1A523A] transition shadow-md flex items-center space-x-2 group">
+                <svg class="w-4 h-4 text-[#22C55E] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
+                <span data-i18n="cta_scan">Scan My Crop</span>
+              </button>
+
+              <button data-cta-tab="assistant" class="px-6 py-3.5 rounded-xl bg-white border border-[#D5D0C2] text-[#133E2B] text-sm font-bold hover:bg-[#F2EFE9] transition shadow-sm flex items-center space-x-2">
+                <svg class="w-4 h-4 text-[#16A34A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <span data-i18n="cta_ask_ai">Ask FIELDAI</span>
+              </button>
+
+              <button data-cta-tab="mandi" class="px-5 py-3.5 rounded-xl text-xs font-bold text-[#575E54] hover:text-[#133E2B] transition flex items-center space-x-1.5">
+                <span data-i18n="cta_view_mandi">Check Mandi Rates</span>
+                <span>→</span>
+              </button>
+            </div>
+
+            <!-- Quick Trust Mini Indicator -->
+            <div class="pt-6 border-t border-[#E8E5DC] flex items-center space-x-6 text-xs text-[#575E54]">
+              <div class="flex items-center space-x-2">
+                <span class="text-[#16A34A] font-bold">✓ 34+ Crops</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-[#16A34A] font-bold">✓ Direct UPI Settlement</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-[#16A34A] font-bold">✓ ਪੰਜਾਬੀ • हिन्दी • English</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Right Visual with Farmer in Field & Floating Badges -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative mx-auto max-w-md lg:max-w-none">
+              
+              <div class="relative rounded-2xl overflow-hidden border border-[#E8E5DC] shadow-xl bg-[#EFECE4]">
+                <img src="/static/img/hero_farmer.jpg" alt="Indian Farmer in Field" class="w-full h-[460px] object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                
+                <div class="absolute bottom-4 left-4 right-4 text-white text-xs">
+                  <div class="flex items-center space-x-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/20">
+                    <span class="w-2 h-2 rounded-full bg-[#22C55E]"></span>
+                    <span>Field Diagnostic Viewfinder Active • Ludhiana Cluster</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Preview 1: Disease Detected Badge -->
+              <div class="floating-preview-1 absolute -top-5 -left-4 sm:-left-8 glass-badge p-3.5 rounded-2xl max-w-[210px]">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-[#FEE2E2] text-[#DC2626] flex items-center justify-center font-bold text-sm">⚠️</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-[#DC2626]" data-i18n="float_disease_title">Disease Detected</h5>
+                    <p class="text-xs font-extrabold text-[#1C1E1B]" data-i18n="float_disease_crop">Wheat • Yellow Rust</p>
+                    <span class="text-[10px] text-[#575E54]" data-i18n="float_disease_action">Tilt 25% EC recommended</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Preview 2: Weather Alert Badge -->
+              <div class="floating-preview-2 absolute top-28 -right-4 sm:-right-8 glass-badge p-3.5 rounded-2xl max-w-[220px]">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-[#DCFCE7] text-[#16A34A] flex items-center justify-center text-sm">🌤️</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-[#16A34A]" data-i18n="float_weather_title">Weather Advisory</h5>
+                    <p class="text-xs font-extrabold text-[#1C1E1B]" data-i18n="float_weather_val">Optimal Spray Window</p>
+                    <span class="text-[10px] text-[#575E54]">Wind 8 km/h • Humidity 68%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Preview 3: Mandi Price Badge -->
+              <div class="floating-preview-3 absolute -bottom-6 -left-3 sm:-left-6 glass-badge p-3 rounded-2xl max-w-[210px]">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-[#FEF3C7] text-[#D97706] flex items-center justify-center font-bold text-sm">₹</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-[#D97706]" data-i18n="float_mandi_title">Khanna Mandi</h5>
+                    <p class="text-xs font-extrabold text-[#133E2B]" data-i18n="float_mandi_val">Wheat ₹2,480 / Qtl</p>
+                    <span class="text-[10px] font-bold text-[#16A34A]">+₹35 Above MSP</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Preview 4: AI Recommendation Badge -->
+              <div class="floating-preview-4 absolute bottom-16 -right-3 sm:-right-6 glass-badge p-3 rounded-2xl max-w-[210px]">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-[#133E2B] text-white flex items-center justify-center text-sm">🤖</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-[#133E2B]" data-i18n="float_ai_title">AI Recommendation</h5>
+                    <p class="text-[11px] font-semibold text-[#1C1E1B]" data-i18n="float_ai_val">Top-dress Nano Urea</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FOUR CORE FEATURE CARDS -->
+      <div class="space-y-6">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-[#133E2B] tracking-tight" data-i18n="feat_title">Precision Agriculture Built for Indian Farmers</h2>
+          <p class="text-sm text-[#575E54]" data-i18n="feat_subtitle">Engineered for real-world field conditions with local agronomical expertise</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="farm-card p-6 flex flex-col justify-between group cursor-pointer hover:border-[#133E2B]" onclick="switchTab('diagnose')">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-[#E8F5E9] text-[#16A34A] flex items-center justify-center mb-5 group-hover:scale-105 transition-transform text-xl">🔬</div>
+              <h3 class="font-bold text-lg text-[#1C1E1B] mb-2" data-i18n="feat_1_title">Crop Disease Detection</h3>
+              <p class="text-xs text-[#575E54] leading-relaxed" data-i18n="feat_1_desc">Instant vision diagnosis for 30+ Indian crops with severity scoring and verified chemical remedies.</p>
+            </div>
+            <div class="pt-4 text-xs font-bold text-[#133E2B] flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+              <span>Launch Scanner</span><span>→</span>
+            </div>
+          </div>
+
+          <div class="farm-card p-6 flex flex-col justify-between group cursor-pointer hover:border-[#133E2B]" onclick="switchTab('assistant')">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center mb-5 group-hover:scale-105 transition-transform text-xl">💬</div>
+              <h3 class="font-bold text-lg text-[#1C1E1B] mb-2" data-i18n="feat_2_title">AI Farming Assistant</h3>
+              <p class="text-xs text-[#575E54] leading-relaxed" data-i18n="feat_2_desc">Ask questions in Punjabi, Hindi, or English. Voice input and audio playback for effortless field use.</p>
+            </div>
+            <div class="pt-4 text-xs font-bold text-[#133E2B] flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+              <span>Ask KhetAI</span><span>→</span>
+            </div>
+          </div>
+
+          <div class="farm-card p-6 flex flex-col justify-between group cursor-pointer hover:border-[#133E2B]" onclick="switchTab('mandi')">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-[#FEF3C7] text-[#D97706] flex items-center justify-center mb-5 group-hover:scale-105 transition-transform text-xl">📈</div>
+              <h3 class="font-bold text-lg text-[#1C1E1B] mb-2" data-i18n="feat_3_title">Live Mandi Prices</h3>
+              <p class="text-xs text-[#575E54] leading-relaxed" data-i18n="feat_3_desc">Real-time APMC mandi modal prices, MSP comparisons, and daily price trends across top agricultural markets.</p>
+            </div>
+            <div class="pt-4 text-xs font-bold text-[#133E2B] flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+              <span>Explore Rates</span><span>→</span>
+            </div>
+          </div>
+
+          <div class="farm-card p-6 flex flex-col justify-between group cursor-pointer hover:border-[#133E2B]" onclick="switchTab('weather')">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-[#ECFDF5] text-[#059669] flex items-center justify-center mb-5 group-hover:scale-105 transition-transform text-xl">🌦️</div>
+              <h3 class="font-bold text-lg text-[#1C1E1B] mb-2" data-i18n="feat_4_title">Smart Weather Advisory</h3>
+              <p class="text-xs text-[#575E54] leading-relaxed" data-i18n="feat_4_desc">Foliar spray suitability index, irrigation scheduling, rainfall radar, and micro-climate frost alerts.</p>
+            </div>
+            <div class="pt-4 text-xs font-bold text-[#133E2B] flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+              <span>View Advisory</span><span>→</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: HOW FIELDAI WORKS -->
+      <div class="farm-card p-8 sm:p-12 bg-white">
+        <div class="text-center max-w-2xl mx-auto space-y-2 mb-10">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-[#133E2B] tracking-tight" data-i18n="how_title">How FIELDAI Works</h2>
+          <p class="text-sm text-[#575E54]" data-i18n="how_subtitle">From field symptom to verified remedy in under 10 seconds</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="space-y-3">
+            <span class="text-4xl font-extrabold text-[#E5E0D5]" data-i18n="step_1_num">01</span>
+            <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="step_1_title">Capture Crop Photo</h4>
+            <p class="text-xs text-[#575E54] leading-relaxed" data-i18n="step_1_desc">Take a photo of diseased leaves, stem or fruit using your phone camera or select from gallery.</p>
+          </div>
+          <div class="space-y-3">
+            <span class="text-4xl font-extrabold text-[#E5E0D5]" data-i18n="step_2_num">02</span>
+            <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="step_2_title">AI Analyzes Pathology</h4>
+            <p class="text-xs text-[#575E54] leading-relaxed" data-i18n="step_2_desc">Neural models analyze symptom patterns, lesions, and chlorosis based on local crop stages.</p>
+          </div>
+          <div class="space-y-3">
+            <span class="text-4xl font-extrabold text-[#E5E0D5]" data-i18n="step_3_num">03</span>
+            <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="step_3_title">Receive Full Diagnosis</h4>
+            <p class="text-xs text-[#575E54] leading-relaxed" data-i18n="step_3_desc">Get confidence score, disease severity, affected area markers, and likely environmental causes.</p>
+          </div>
+          <div class="space-y-3">
+            <span class="text-4xl font-extrabold text-[#E5E0D5]" data-i18n="step_4_num">04</span>
+            <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="step_4_title">Approved Remedies</h4>
+            <p class="text-xs text-[#575E54] leading-relaxed" data-i18n="step_4_desc">Obtain CIBRC-registered pesticide/bio-control dosage, PPE guidelines, and doorstep delivery options.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: EVERYTHING YOUR FARM NEEDS -->
+      <div class="space-y-6">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-[#133E2B] tracking-tight" data-i18n="suite_title">Everything Your Farm Needs</h2>
+          <p class="text-sm text-[#575E54]" data-i18n="suite_subtitle">A unified platform connecting farm diagnosis, market trading, weather risk, and agronomy</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="farm-card p-6 flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-lg bg-[#E8F5E9] text-[#16A34A] flex items-center justify-center shrink-0">🔬</div>
+            <div>
+              <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="suite_1_name">Disease Detection</h4>
+              <p class="text-xs text-[#575E54] mt-1" data-i18n="suite_1_sub">Computer vision diagnostic engine</p>
+            </div>
+          </div>
+          <div class="farm-card p-6 flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-lg bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center shrink-0">🌦️</div>
+            <div>
+              <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="suite_2_name">Weather Intelligence</h4>
+              <p class="text-xs text-[#575E54] mt-1" data-i18n="suite_2_sub">7-day agro-meteorological advisory</p>
+            </div>
+          </div>
+          <div class="farm-card p-6 flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-lg bg-[#FEF3C7] text-[#D97706] flex items-center justify-center shrink-0">📈</div>
+            <div>
+              <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="suite_3_name">Live Mandi Prices</h4>
+              <p class="text-xs text-[#575E54] mt-1" data-i18n="suite_3_sub">Daily APMC trading updates & MSP tracking</p>
+            </div>
+          </div>
+          <div class="farm-card p-6 flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-lg bg-[#F3E8FF] text-[#7E22CE] flex items-center justify-center shrink-0">📋</div>
+            <div>
+              <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="suite_4_name">Digital Farm Records</h4>
+              <p class="text-xs text-[#575E54] mt-1" data-i18n="suite_4_sub">Parcel soil health cards & treatment logs</p>
+            </div>
+          </div>
+          <div class="farm-card p-6 flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-lg bg-[#FEE2E2] text-[#DC2626] flex items-center justify-center shrink-0">🛡️</div>
+            <div>
+              <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="suite_5_name">Verified Marketplace</h4>
+              <p class="text-xs text-[#575E54] mt-1" data-i18n="suite_5_sub">CIBRC approved genuine crop inputs</p>
+            </div>
+          </div>
+          <div class="farm-card p-6 flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-lg bg-[#CCFBF1] text-[#0D9488] flex items-center justify-center shrink-0">🗣️</div>
+            <div>
+              <h4 class="font-bold text-base text-[#1C1E1B]" data-i18n="suite_6_name">Multilingual AI</h4>
+              <p class="text-xs text-[#575E54] mt-1" data-i18n="suite_6_sub">Gurmukhi, Devanagari & English voice AI</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRUST METRICS -->
+      <div class="rounded-2xl bg-[#133E2B] text-white p-8 sm:p-12 shadow-lg">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-[#22C55E]">34+</div>
+            <div class="text-xs sm:text-sm text-[#A7C2B4] mt-1 font-medium" data-i18n="stat_crops">Crops Supported</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-[#22C55E]">3 Regional</div>
+            <div class="text-xs sm:text-sm text-[#A7C2B4] mt-1 font-medium" data-i18n="stat_langs">Languages Supported</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-[#22C55E]">184,500+</div>
+            <div class="text-xs sm:text-sm text-[#A7C2B4] mt-1 font-medium" data-i18n="stat_diags">Diagnoses Completed</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-[#22C55E]">128 APMC</div>
+            <div class="text-xs sm:text-sm text-[#A7C2B4] mt-1 font-medium" data-i18n="stat_mandis">Markets Tracked</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 2. CROP DOCTOR (DISEASE DETECTION) SECTION -->
+    <section id="section-diagnose" class="app-section hidden space-y-10">
+      
+      <div class="max-w-3xl space-y-2">
+        <div class="inline-flex items-center space-x-2 text-xs font-bold text-[#16A34A] uppercase tracking-wider">
+          <span>AI Computer Vision Engine</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#133E2B] tracking-tight" data-i18n="doc_page_title">Crop Doctor — AI Disease Detection</h2>
+        <p class="text-sm text-[#575E54]" data-i18n="doc_page_subtitle">Upload or capture clear leaf photos to receive instant pathological analysis and verified management plans.</p>
+      </div>
+
+      <div class="farm-card p-6 sm:p-8">
+        <h3 class="text-lg font-bold text-[#1C1E1B] mb-6" data-i18n="doc_upload_heading">Step 1: Provide Crop Context & Photo</h3>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Left Column: Context Questionnaire -->
+          <div class="lg:col-span-5 space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-[#1C1E1B] uppercase tracking-wider mb-1.5" data-i18n="doc_label_crop">Select Crop</label>
+              <select id="diag-crop-select" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] bg-white text-sm text-[#1C1E1B] focus:outline-none focus:ring-2 focus:ring-[#133E2B] transition"></select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-[#1C1E1B] uppercase tracking-wider mb-1.5" data-i18n="doc_label_stage">Crop Growth Stage</label>
+              <select id="diag-stage-select" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] bg-white text-sm text-[#1C1E1B] focus:outline-none focus:ring-2 focus:ring-[#133E2B] transition"></select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-[#1C1E1B] uppercase tracking-wider mb-1.5" data-i18n="doc_label_location">Your Location (District, State)</label>
+              <input type="text" id="diag-location-input" value="Ludhiana, Punjab" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] bg-white text-sm text-[#1C1E1B] focus:outline-none focus:ring-2 focus:ring-[#133E2B] transition">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-[#1C1E1B] uppercase tracking-wider mb-1.5" data-i18n="doc_label_symptoms">Symptoms Observed (Optional)</label>
+              <textarea id="diag-symptoms-input" rows="3" placeholder="e.g. Yellow powdery lines along leaf, curling edges, brown spots" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] bg-white text-sm text-[#1C1E1B] focus:outline-none focus:ring-2 focus:ring-[#133E2B] transition"></textarea>
+            </div>
+
+            <div class="pt-2">
+              <label class="block text-xs font-bold text-[#575E54] mb-2" data-i18n="doc_samples_label">Or try these quick sample crop leaves:</label>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" class="sample-leaf-chip text-xs px-3 py-1.5 rounded-lg bg-[#F2EFE9] text-[#133E2B] font-semibold hover:bg-[#E5E0D5] transition" data-sample="wheat_yellow_rust" data-crop="wheat" data-img="/static/img/samples/wheat_yellow_rust.jpg">🌾 Wheat Yellow Rust</button>
+                <button type="button" class="sample-leaf-chip text-xs px-3 py-1.5 rounded-lg bg-[#F2EFE9] text-[#133E2B] font-semibold hover:bg-[#E5E0D5] transition" data-sample="rice_blast" data-crop="rice" data-img="/static/img/samples/rice_blast.jpg">🌾 Rice Blast</button>
+                <button type="button" class="sample-leaf-chip text-xs px-3 py-1.5 rounded-lg bg-[#F2EFE9] text-[#133E2B] font-semibold hover:bg-[#E5E0D5] transition" data-sample="cotton_leaf_curl" data-crop="cotton" data-img="/static/img/samples/cotton_leaf_curl.jpg">☁️ Cotton Leaf Curl</button>
+                <button type="button" class="sample-leaf-chip text-xs px-3 py-1.5 rounded-lg bg-[#F2EFE9] text-[#133E2B] font-semibold hover:bg-[#E5E0D5] transition" data-sample="mustard_white_rust" data-crop="mustard" data-img="/static/img/samples/mustard_white_rust.jpg">🌱 Mustard White Rust</button>
+                <button type="button" class="sample-leaf-chip text-xs px-3 py-1.5 rounded-lg bg-[#F2EFE9] text-[#133E2B] font-semibold hover:bg-[#E5E0D5] transition" data-sample="potato_late_blight" data-crop="potato" data-img="/static/img/samples/potato_late_blight.jpg">🥔 Potato Late Blight</button>
+                <button type="button" class="sample-leaf-chip text-xs px-3 py-1.5 rounded-lg bg-[#F2EFE9] text-[#133E2B] font-semibold hover:bg-[#E5E0D5] transition" data-sample="tomato_early_blight" data-crop="tomato" data-img="/static/img/samples/tomato_early_blight.jpg">🍅 Tomato Early Blight</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Image Capture & Preview Area -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
+            
+            <input type="file" id="diag-file-input" accept="image/*" class="hidden">
+
+            <div id="diag-drop-zone" class="border-2 border-dashed border-[#D5D0C2] rounded-2xl p-8 text-center flex flex-col items-center justify-center min-h-[300px] bg-[#FAF9F5] transition cursor-pointer hover:border-[#133E2B]">
+              <div class="w-16 h-16 rounded-full bg-[#E8F5E9] text-[#16A34A] flex items-center justify-center mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              </div>
+              <p class="text-sm font-bold text-[#1C1E1B] mb-1" data-i18n="doc_drop_text">Drag and drop leaf photo here, or click to browse</p>
+              <p class="text-xs text-[#858D82] mb-6">Supports JPG, PNG up to 15MB • Mobile camera ready</p>
+              
+              <div class="flex flex-wrap gap-3 justify-center">
+                <button type="button" id="diag-camera-btn" class="px-4 py-2.5 rounded-xl bg-[#133E2B] text-white text-xs font-bold hover:bg-[#1A523A] transition shadow-sm flex items-center space-x-1.5">
+                  <svg class="w-4 h-4 text-[#22C55E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
+                  <span data-i18n="doc_camera_btn">Take Photo with Camera</span>
+                </button>
+                <button type="button" id="diag-upload-btn" class="px-4 py-2.5 rounded-xl bg-white border border-[#D5D0C2] text-[#1C1E1B] text-xs font-bold hover:bg-[#F2EFE9] transition shadow-sm" data-i18n="doc_upload_btn">Upload from Gallery</button>
+              </div>
+            </div>
+
+            <!-- Preview Image & Canvas Wrapper -->
+            <div id="diag-preview-wrapper" class="hidden relative rounded-2xl overflow-hidden border border-[#D5D0C2] bg-black max-h-[380px] flex items-center justify-center">
+              <img id="diag-preview-image" src="" alt="Crop Leaf Scan Preview" class="max-h-[380px] w-full object-contain">
+              <canvas id="diag-bounding-canvas" class="absolute inset-0 pointer-events-none"></canvas>
+
+              <div id="diag-scanning-overlay" class="hidden absolute inset-0 bg-black/40 backdrop-blur-[2px] flex flex-col items-center justify-center text-white">
+                <div class="scan-laser"></div>
+                <div class="w-14 h-14 rounded-full border-4 border-[#22C55E] border-t-transparent animate-spin mb-3"></div>
+                <p class="text-sm font-bold tracking-wide" data-i18n="doc_analyzing_text">Analyzing crop pathology with vision models...</p>
+                <span class="text-xs text-white/80 mt-1">Evaluating leaf lesions, chlorosis & fungal spores</span>
+              </div>
+
+              <button id="diag-reset-image-btn" class="absolute top-3 right-3 p-2 rounded-xl bg-black/60 text-white hover:bg-black text-xs font-bold transition">✕ Change Photo</button>
+            </div>
+
+            <button id="diag-run-analyze-btn" class="w-full py-4 rounded-xl bg-[#133E2B] text-white font-bold text-sm hover:bg-[#1A523A] transition shadow-md flex items-center justify-center space-x-2">
+              <svg class="w-5 h-5 text-[#22C55E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <span data-i18n="doc_analyze_btn">Run AI Crop Diagnosis</span>
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PROFESSIONAL AI DIAGNOSIS PANEL (Populated After Scan) -->
+      <div id="diag-results-panel" class="hidden space-y-8">
+        
+        <div class="farm-card p-6 sm:p-8 border-l-4 border-l-[#133E2B]">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E8E5DC]">
+            <div>
+              <div class="flex items-center space-x-3 mb-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#16A34A]" data-i18n="diag_res_title">Pathology Diagnosis</span>
+                <span id="res-confidence-badge" class="px-2.5 py-0.5 rounded-full bg-[#E8F5E9] text-[#16A34A] text-xs font-bold">96.2% Confidence</span>
+                <span id="res-severity-badge" class="px-2.5 py-0.5 rounded-full text-white text-xs font-bold bg-[#DC2626]">Critical Severity</span>
+              </div>
+              <h3 id="res-disease-title" class="text-2xl sm:text-3xl font-extrabold text-[#1C1E1B]">Yellow Rust (Stripe Rust)</h3>
+              <p id="res-scientific-name" class="text-sm italic text-[#575E54]">Puccinia striiformis f. sp. tritici</p>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <button id="res-ask-ai-btn" class="px-4 py-2.5 rounded-xl bg-[#133E2B] text-white text-xs font-bold hover:bg-[#1A523A] transition shadow-sm flex items-center space-x-1.5">
+                <span>💬</span>
+                <span data-i18n="diag_btn_ask_ai">Ask AI About This Diagnosis</span>
+              </button>
+              <button id="res-save-farm-btn" class="px-4 py-2.5 rounded-xl bg-white border border-[#D5D0C2] text-[#1C1E1B] text-xs font-bold hover:bg-[#F2EFE9] transition shadow-sm flex items-center space-x-1.5">
+                <span>💾</span>
+                <span data-i18n="diag_btn_save">Save to My Farm Log</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Medical/Agronomical Disclaimer Alert Box -->
+          <div class="my-6 p-4 rounded-xl bg-[#FEF2F2] border border-[#FECACA] flex items-start space-x-3 text-xs text-[#991B1B]">
+            <span class="text-lg">⚠️</span>
+            <p class="leading-relaxed" data-i18n="diag_disclaimer">
+              AI assessment — verify severe cases with an agricultural expert. Use agricultural chemicals only according to the approved product label and local agricultural guidance.
+            </p>
+          </div>
+
+          <!-- Diagnosis Details Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+            
+            <div class="bg-[#FAF9F5] p-5 rounded-xl border border-[#EDE8DC] space-y-3">
+              <h4 class="font-bold text-sm text-[#1C1E1B] flex items-center space-x-2">
+                <span>🔍</span>
+                <span data-i18n="diag_symptoms_header">Visible Symptoms Identified</span>
+              </h4>
+              <ul id="res-symptoms-list" class="space-y-2"></ul>
+            </div>
+
+            <div class="bg-[#FAF9F5] p-5 rounded-xl border border-[#EDE8DC] space-y-3">
+              <h4 class="font-bold text-sm text-[#1C1E1B] flex items-center space-x-2">
+                <span>☁️</span>
+                <span data-i18n="diag_causes_header">Likely Environmental Causes</span>
+              </h4>
+              <ul id="res-causes-list" class="space-y-2"></ul>
+            </div>
+
+            <div class="bg-[#F4F8F5] p-5 rounded-xl border border-[#D1E7D9] space-y-3">
+              <h4 class="font-bold text-sm text-[#133E2B] flex items-center space-x-2">
+                <span>⚡</span>
+                <span data-i18n="diag_steps_header">Recommended Next Steps</span>
+              </h4>
+              <ul id="res-steps-list" class="space-y-2"></ul>
+            </div>
+
+            <div class="bg-[#FAF9F5] p-5 rounded-xl border border-[#EDE8DC] space-y-3">
+              <h4 class="font-bold text-sm text-[#1C1E1B] flex items-center space-x-2">
+                <span>🛡️</span>
+                <span data-i18n="diag_prevention_header">Long-term Prevention & Cultural Practices</span>
+              </h4>
+              <ul id="res-prevention-list" class="space-y-2"></ul>
+            </div>
+
+          </div>
+
+          <!-- Connected Treatments Subsection -->
+          <div class="pt-6 border-t border-[#E8E5DC] space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-base font-bold text-[#133E2B]" data-i18n="diag_approved_treatments_title">Approved Chemical & Bio Treatments</h4>
+                <p class="text-xs text-[#575E54]" data-i18n="diag_approved_treatments_sub">CIBRC registered products formulated specifically for this disease</p>
+              </div>
+              <button id="res-find-treatment-btn" class="text-xs font-bold text-[#16A34A] hover:underline" data-i18n="diag_btn_treatment">View Full Marketplace Catalog →</button>
+            </div>
+
+            <div id="res-treatments-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 3. TREATMENT / PESTICIDE & FERTILIZER MARKETPLACE SECTION -->
+    <section id="section-shop" class="app-section hidden space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div class="space-y-2 max-w-2xl">
+          <div class="inline-flex items-center space-x-2 text-xs font-bold text-[#16A34A] uppercase tracking-wider">
+            <span>Verified Agri-Input Store</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#133E2B] tracking-tight" data-i18n="shop_page_title">Approved Treatments & Farm Inputs</h2>
+          <p class="text-sm text-[#575E54]" data-i18n="shop_page_subtitle">Verified genuine agricultural inputs complying strictly with CIBRC product labels and recommended dilution rates.</p>
+        </div>
+
+        <div class="w-full md:w-72">
+          <input type="text" id="shop-search-input" placeholder="Search product, formula, crop..." class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] bg-white text-xs text-[#1C1E1B] focus:outline-none focus:ring-2 focus:ring-[#133E2B]">
+        </div>
+      </div>
+
+      <!-- Regulatory Label Warning Banner -->
+      <div class="p-4 rounded-xl bg-[#FFFBEB] border border-[#FDE68A] flex items-center space-x-3 text-xs text-[#92400E]">
+        <span class="text-base">📜</span>
+        <span class="font-medium" data-i18n="shop_disclaimer">Use agricultural chemicals only according to the approved product label and local agricultural guidance.</span>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap gap-2 pb-2 border-b border-[#E8E5DC]">
+        <button data-shop-filter="All" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#133E2B] text-white transition shadow-sm" data-i18n="shop_filter_all">All Products</button>
+        <button data-shop-filter="Fungicide" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-[#575E54] hover:bg-[#F2EFE9] transition border border-[#E4E0D5]" data-i18n="shop_filter_fungicide">Fungicides</button>
+        <button data-shop-filter="Insecticide" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-[#575E54] hover:bg-[#F2EFE9] transition border border-[#E4E0D5]" data-i18n="shop_filter_insecticide">Insecticides</button>
+        <button data-shop-filter="Bio-control" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-[#575E54] hover:bg-[#F2EFE9] transition border border-[#E4E0D5]" data-i18n="shop_filter_biocontrol">Bio-Controls</button>
+        <button data-shop-filter="Fertilizer" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-[#575E54] hover:bg-[#F2EFE9] transition border border-[#E4E0D5]" data-i18n="shop_filter_fertilizer">Fertilizers</button>
+        <button data-shop-filter="Seeds" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-[#575E54] hover:bg-[#F2EFE9] transition border border-[#E4E0D5]" data-i18n="shop_filter_seeds">Certified Seeds</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="shop-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    </section>
+
+    <!-- 4. AI FARMING ASSISTANT -->
+    <section id="section-assistant" class="app-section hidden space-y-6">
+      
+      <div class="space-y-1">
+        <h2 class="text-3xl font-extrabold text-[#133E2B] tracking-tight" data-i18n="ai_page_title">FIELDAI Agricultural Assistant</h2>
+        <p class="text-sm text-[#575E54]" data-i18n="ai_page_subtitle">Conversational agronomy guidance in Punjabi, Hindi, or English with local weather and soil context.</p>
+      </div>
+
+      <!-- Suggested Queries -->
+      <div class="space-y-2">
+        <div class="text-xs font-bold text-[#858D82] uppercase tracking-wider" data-i18n="ai_suggested_prompts_title">Suggested Farmer Queries:</div>
+        <div class="flex flex-wrap gap-2">
+          <button class="ai-suggested-chip text-xs px-3.5 py-1.5 rounded-full bg-white border border-[#D5D0C2] text-[#133E2B] font-medium hover:bg-[#F2EFE9] transition" data-i18n="ai_prompt_1">ਮੇਰੀ ਕਣਕ ਦੇ ਪੱਤੇ ਪੀਲੇ ਕਿਉਂ ਹੋ ਰਹੇ ਹਨ?</button>
+          <button class="ai-suggested-chip text-xs px-3.5 py-1.5 rounded-full bg-white border border-[#D5D0C2] text-[#133E2B] font-medium hover:bg-[#F2EFE9] transition" data-i18n="ai_prompt_2">Should I irrigate my wheat tomorrow?</button>
+          <button class="ai-suggested-chip text-xs px-3.5 py-1.5 rounded-full bg-white border border-[#D5D0C2] text-[#133E2B] font-medium hover:bg-[#F2EFE9] transition" data-i18n="ai_prompt_3">What fertilizer should be used at this growth stage?</button>
+          <button class="ai-suggested-chip text-xs px-3.5 py-1.5 rounded-full bg-white border border-[#D5D0C2] text-[#133E2B] font-medium hover:bg-[#F2EFE9] transition" data-i18n="ai_prompt_4">आज बारिश होने वाली है, मुझे क्या करना चाहिए?</button>
+        </div>
+      </div>
+
+      <!-- Main Chat Container -->
+      <div class="farm-card flex flex-col h-[600px] overflow-hidden bg-[#FAF9F5]">
+        
+        <div class="p-4 bg-white border-b border-[#E8E5DC] flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-[#133E2B] text-white flex items-center justify-center font-bold text-sm">🤖</div>
+            <div>
+              <h4 class="font-bold text-sm text-[#1C1E1B]">KhetAI Agronomist Engine</h4>
+              <span class="text-[11px] text-[#16A34A] flex items-center space-x-1 font-medium">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#16A34A]"></span>
+                <span>Context Aware (Ludhiana Weather & Farm Soil Synced)</span>
+              </span>
+            </div>
+          </div>
+          <div class="text-xs text-[#858D82] font-semibold">Web Speech API Voice Active</div>
+        </div>
+
+        <div id="ai-chat-history" class="flex-1 p-6 overflow-y-auto space-y-4"></div>
+
+        <div id="ai-typing-indicator" class="hidden px-6 py-2 text-xs text-[#858D82] flex items-center space-x-2">
+          <div class="w-2 h-2 rounded-full bg-[#16A34A] animate-bounce"></div>
+          <div class="w-2 h-2 rounded-full bg-[#16A34A] animate-bounce [animation-delay:0.2s]"></div>
+          <div class="w-2 h-2 rounded-full bg-[#16A34A] animate-bounce [animation-delay:0.4s]"></div>
+          <span>FIELDAI is reviewing ICAR agronomic guidelines...</span>
+        </div>
+
+        <div class="p-4 bg-white border-t border-[#E8E5DC]">
+          <div class="flex items-center space-x-2">
+            <button id="ai-chat-mic-btn" class="p-3 rounded-xl bg-[#F2EFE9] text-[#133E2B] hover:bg-[#E5E0D5] transition shrink-0" title="Click to Speak (Voice Input)">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+            </button>
+
+            <input type="text" id="ai-chat-input" placeholder="Ask anything about crops, pests, fertilizers or weather (English / ਪੰਜਾਬੀ / हिन्दी)..." class="flex-1 px-4 py-3 rounded-xl border border-[#D5D0C2] text-sm text-[#1C1E1B] focus:outline-none focus:ring-2 focus:ring-[#133E2B]">
+
+            <button id="ai-chat-send-btn" class="px-5 py-3 rounded-xl bg-[#133E2B] text-white text-sm font-bold hover:bg-[#1A523A] transition shadow-sm flex items-center space-x-1.5 shrink-0">
+              <span data-i18n="ai_send_btn">Send</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 5. LIVE MANDI PRICES SECTION -->
+    <section id="section-mandi" class="app-section hidden space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div class="space-y-2 max-w-2xl">
+          <div class="inline-flex items-center space-x-2 text-xs font-bold text-[#D97706] uppercase tracking-wider">
+            <span>Direct APMC Market Feeds</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#133E2B] tracking-tight" data-i18n="mandi_page_title">Live Mandi APMC Prices & MSP Trends</h2>
+          <p class="text-sm text-[#575E54]" data-i18n="mandi_page_subtitle">Daily modal prices from major regulated grain and commodity markets with MSP tracking.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 w-full md:w-auto">
+          <select id="mandi-state-select" class="px-3 py-2 rounded-xl border border-[#D5D0C2] bg-white text-xs font-semibold text-[#1C1E1B] focus:outline-none focus:ring-2 focus:ring-[#133E2B]">
+            <option value="all">All States</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+          </select>
+          <input type="text" id="mandi-search-input" placeholder="Search mandi, crop..." class="px-4 py-2 rounded-xl border border-[#D5D0C2] bg-white text-xs text-[#1C1E1B] focus:outline-none focus:ring-2 focus:ring-[#133E2B]">
+        </div>
+      </div>
+
+      <div id="hero-mandi-cards" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+
+      <div class="farm-card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-[#F2EFE9] border-b border-[#E8E5DC] text-xs font-bold text-[#575E54] uppercase tracking-wider">
+                <th class="py-3.5 px-4" data-i18n="mandi_col_mandi">Mandi / Market</th>
+                <th class="py-3.5 px-4" data-i18n="mandi_col_crop">Commodity</th>
+                <th class="py-3.5 px-4" data-i18n="mandi_col_modal">Modal Price</th>
+                <th class="py-3.5 px-4" data-i18n="mandi_col_min_max">Min / Max</th>
+                <th class="py-3.5 px-4" data-i18n="mandi_col_change">Daily Change</th>
+                <th class="py-3.5 px-4" data-i18n="mandi_col_msp">MSP Benchmark</th>
+              </tr>
+            </thead>
+            <tbody id="mandi-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 6. SMART WEATHER ADVISORY SECTION -->
+    <section id="section-weather" class="app-section hidden space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div class="space-y-2 max-w-2xl">
+          <div class="inline-flex items-center space-x-2 text-xs font-bold text-[#059669] uppercase tracking-wider">
+            <span>Agro-Meteorological Forecast</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#133E2B] tracking-tight" data-i18n="weather_page_title">Smart Agro-Meteorological Weather Advisory</h2>
+          <p class="text-sm text-[#575E54]" data-i18n="weather_page_subtitle">Field-level humidity, spray suitability score, and 7-day crop risk forecast.</p>
+        </div>
+
+        <div>
+          <select id="weather-location-select" class="px-4 py-2.5 rounded-xl border border-[#D5D0C2] bg-white text-xs font-semibold text-[#1C1E1B]">
+            <option value="Ludhiana">Ludhiana, Punjab</option>
+            <option value="Bathinda">Bathinda, Punjab</option>
+            <option value="Karnal">Karnal, Haryana</option>
+            <option value="Indore">Indore, MP</option>
+            <option value="Meerut">Meerut, UP</option>
+            <option value="Kota">Kota, Rajasthan</option>
+            <option value="Nashik">Nashik, Maharashtra</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <div class="lg:col-span-5 farm-card p-6 bg-gradient-to-br from-white to-[#F8F7F2] space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold text-[#858D82] uppercase">Field Observation</span>
+              <h3 id="weather-location-title" class="text-xl font-bold text-[#1C1E1B]">Ludhiana, Punjab</h3>
+            </div>
+            <div class="text-4xl">☀️</div>
+          </div>
+
+          <div class="flex items-baseline space-x-4">
+            <span id="weather-temp-main" class="text-5xl font-extrabold text-[#133E2B]">24°C</span>
+            <span id="weather-cond-main" class="text-base font-semibold text-[#575E54]">Partly Sunny</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 pt-4 border-t border-[#E8E5DC] text-center">
+            <div class="bg-white p-3 rounded-xl border border-[#EDE8DC]">
+              <span class="text-[11px] text-[#858D82] block" data-i18n="weather_humidity_label">Humidity</span>
+              <span id="weather-humidity-main" class="text-sm font-bold text-[#1C1E1B]">68%</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-[#EDE8DC]">
+              <span class="text-[11px] text-[#858D82] block" data-i18n="weather_wind_label">Wind Speed</span>
+              <span id="weather-wind-main" class="text-sm font-bold text-[#1C1E1B]">8 km/h NW</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-[#EDE8DC]">
+              <span class="text-[11px] text-[#858D82] block" data-i18n="weather_rain_label">Rain Chance</span>
+              <span id="weather-rain-main" class="text-sm font-bold text-[#2563EB]">12%</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="weather-spray-box" class="lg:col-span-7 farm-card p-6 border-l-4 border-l-[#16A34A] space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-[#16A34A]" data-i18n="weather_spray_index">Foliar Spray Suitability Index</span>
+              <h4 class="text-lg font-bold text-[#1C1E1B] mt-0.5">Optimal Conditions for Fungicide & Pesticide Application</h4>
+            </div>
+            <div class="text-right">
+              <span id="weather-spray-score" class="text-3xl font-extrabold text-[#16A34A]">88%</span>
+              <span id="weather-spray-status" class="block text-xs font-bold text-[#16A34A]">Optimal</span>
+            </div>
+          </div>
+
+          <p id="weather-spray-advisory" class="text-xs text-[#575E54] leading-relaxed bg-[#FAF9F5] p-3.5 rounded-xl border border-[#EDE8DC]"></p>
+
+          <div class="space-y-2 pt-2">
+            <h5 class="text-xs font-bold text-[#1C1E1B]" data-i18n="weather_irrigation_advisory">Irrigation Advisory</h5>
+            <p id="weather-irrigation-text" class="text-xs text-[#575E54] leading-relaxed"></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="space-y-3">
+        <h3 class="text-base font-bold text-[#1C1E1B]">7-Day Agricultural Weather Outlook</h3>
+        <div id="weather-forecast-row" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3"></div>
+      </div>
+
+      <div class="space-y-3">
+        <h3 class="text-base font-bold text-[#1C1E1B]" data-i18n="weather_active_alerts">Active Agricultural Weather Alerts</h3>
+        <div id="weather-alerts-container" class="space-y-3"></div>
+      </div>
+
+    </section>
+
+    <!-- 7. MY FARM (PARCELS, SOIL HEALTH, DIAGNOSIS LOG) SECTION -->
+    <section id="section-farm" class="app-section hidden space-y-10">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E8E5DC]">
+        <div>
+          <h2 class="text-3xl font-extrabold text-[#133E2B]" id="farm-header-name">Sardar Gurpreet Singh</h2>
+          <p class="text-xs text-[#575E54] mt-1" id="farm-header-meta">Bhamian Kalan, Ludhiana, Punjab • Total Land: 14.5 Acres</p>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="openAuthLoginModal()" class="px-3.5 py-2.5 rounded-xl bg-[#F2EFE9] text-[#133E2B] text-xs font-bold hover:bg-[#E4E0D5] transition shadow-sm flex items-center space-x-1.5">
+            <span>👤</span>
+            <span>Switch / Login</span>
+          </button>
+          <button id="farm-add-parcel-btn" class="px-4 py-2.5 rounded-xl bg-[#133E2B] text-white text-xs font-bold hover:bg-[#1A523A] transition shadow-sm flex items-center space-x-1.5 self-start">
+            <span>+</span>
+            <span data-i18n="farm_btn_add_parcel">+ Add New Field Parcel</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Farmer Key Profile Indicators -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#FAF9F5] p-4 rounded-2xl border border-[#EDE8DC]">
+        <div class="p-2">
+          <span class="text-[11px] text-[#858D82] font-semibold block">Kisan Credit ID</span>
+          <span id="farm-kisan-id" class="text-sm font-bold text-[#133E2B]">PB-LU-2026-8812</span>
+        </div>
+        <div class="p-2">
+          <span class="text-[11px] text-[#858D82] font-semibold block">Total Cultivated Land</span>
+          <span id="farm-holding-acres" class="text-sm font-bold text-[#1C1E1B]">14.5 Acres</span>
+        </div>
+        <div class="p-2">
+          <span class="text-[11px] text-[#858D82] font-semibold block">Tubewells / Irrigation</span>
+          <span id="farm-tubewells-count" class="text-sm font-bold text-[#1C1E1B]">2 Submersible</span>
+        </div>
+        <div class="p-2">
+          <span class="text-[11px] text-[#858D82] font-semibold block">Govt Soil Health Card</span>
+          <span id="farm-shc-badge-id" class="text-sm font-bold text-[#16A34A]">PAU-SHC-9042 ✓</span>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h3 class="text-lg font-bold text-[#1C1E1B]" data-i18n="farm_tab_parcels">Field Parcels</h3>
+        <div id="farm-parcels-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+      </div>
+
+      <div class="farm-card p-6 sm:p-8 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="text-lg font-bold text-[#1C1E1B]" data-i18n="farm_tab_soil">Soil Health Card Summary</h3>
+            <p class="text-xs text-[#858D82]" id="soil-lab-meta">Tested on: 15 Sep 2025 by Soil Testing Lab, PAU Ludhiana</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#E8F5E9] text-[#16A34A] border border-[#C8E6C9]">Govt Soil Health Card Verified</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="bg-[#FAF9F5] p-3.5 rounded-xl border border-[#EDE8DC] text-center">
+            <span class="text-xs text-[#858D82] font-semibold block">pH Level</span>
+            <span id="soil-ph-val" class="text-base font-bold text-[#133E2B]">7.3 (Neutral)</span>
+          </div>
+          <div class="bg-[#FAF9F5] p-3.5 rounded-xl border border-[#EDE8DC] text-center">
+            <span class="text-xs text-[#858D82] font-semibold block">Organic Carbon</span>
+            <span id="soil-oc-val" class="text-base font-bold text-[#133E2B]">0.58% (Medium)</span>
+          </div>
+          <div class="bg-[#FAF9F5] p-3.5 rounded-xl border border-[#EDE8DC] text-center">
+            <span class="text-xs text-[#858D82] font-semibold block">Nitrogen (N)</span>
+            <span id="soil-n-val" class="text-base font-bold text-[#D97706]">218 kg/ha (Low)</span>
+          </div>
+          <div class="bg-[#FAF9F5] p-3.5 rounded-xl border border-[#EDE8DC] text-center">
+            <span class="text-xs text-[#858D82] font-semibold block">Phosphorus (P)</span>
+            <span id="soil-p-val" class="text-base font-bold text-[#133E2B]">24.5 kg/ha</span>
+          </div>
+          <div class="bg-[#FAF9F5] p-3.5 rounded-xl border border-[#EDE8DC] text-center">
+            <span class="text-xs text-[#858D82] font-semibold block">Potassium (K)</span>
+            <span id="soil-k-val" class="text-base font-bold text-[#16A34A]">295 kg/ha</span>
+          </div>
+          <div class="bg-[#FAF9F5] p-3.5 rounded-xl border border-[#EDE8DC] text-center">
+            <span class="text-xs text-[#858D82] font-semibold block">Zinc (Zn)</span>
+            <span id="soil-zn-val" class="text-base font-bold text-[#DC2626]">0.62 ppm (Low)</span>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] text-xs text-[#92400E]">
+          <strong>Agronomist Soil Advice:</strong> <span id="farm-soil-advice">Nitrogen and Zinc are below optimal thresholds. Apply 21% Zinc Sulphate spray (1kg/acre) with first irrigation and supplement basal urea with IFFCO Nano Urea foliar spray.</span>
+        </div>
+      </div>
+
+      <div class="farm-card p-6 space-y-4">
+        <h3 class="text-lg font-bold text-[#1C1E1B]" data-i18n="farm_tab_history">Crop Doctor Diagnosis History</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="bg-[#F2EFE9] text-xs font-bold text-[#575E54] uppercase">
+                <th class="py-2.5 px-3">Date</th>
+                <th class="py-2.5 px-3">Crop</th>
+                <th class="py-2.5 px-3">Detected Disease</th>
+                <th class="py-2.5 px-3">Confidence</th>
+                <th class="py-2.5 px-3">Intervention Taken</th>
+                <th class="py-2.5 px-3">Status</th>
+              </tr>
+            </thead>
+            <tbody id="farm-history-table-body"></tbody>
+          </table>
+        </div>
+      <!-- Agri Purchases & Tax Invoices -->
+      <div class="farm-card p-6 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-[#E8E5DC]">
+          <div class="flex items-center space-x-2">
+            <span class="text-xl">🧾</span>
+            <h3 class="text-lg font-bold text-[#1C1E1B]" data-i18n="farm_tab_orders">Agri Purchases & Invoices</h3>
+          </div>
+          <span id="farm-orders-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-[#DCFCE7] text-[#16A34A] border border-[#BBF7D0]">1 Confirmed Order</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="bg-[#F2EFE9] font-bold text-[#575E54] uppercase">
+                <th class="py-2.5 px-3">Date</th>
+                <th class="py-2.5 px-3">Order Ref</th>
+                <th class="py-2.5 px-3">Products</th>
+                <th class="py-2.5 px-3">Payment Mode</th>
+                <th class="py-2.5 px-3 text-right">Amount</th>
+                <th class="py-2.5 px-3">Status</th>
+                <th class="py-2.5 px-3 text-center">Invoice</th>
+              </tr>
+            </thead>
+            <tbody id="farm-orders-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= MOBILE BOTTOM NAVIGATION (BANKING STYLE) ================= -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 mobile-nav-bar flex items-center justify-around h-16 px-2">
+    <button class="mobile-nav-link flex flex-col items-center justify-center w-14 text-[#133E2B]" data-tab="home">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+      <span class="text-[10px] mt-1 font-bold" data-i18n="mob_home">Home</span>
+    </button>
+    <button class="mobile-nav-link flex flex-col items-center justify-center w-14 text-[#858D82]" data-tab="diagnose">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+      <span class="text-[10px] mt-1 font-medium" data-i18n="mob_diagnose">Diagnose</span>
+    </button>
+    <button class="mobile-nav-link flex flex-col items-center justify-center w-14 text-[#858D82]" data-tab="assistant">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+      <span class="text-[10px] mt-1 font-medium" data-i18n="mob_ai">AI Assistant</span>
+    </button>
+    <button class="mobile-nav-link flex flex-col items-center justify-center w-14 text-[#858D82]" data-tab="mandi">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+      <span class="text-[10px] mt-1 font-medium" data-i18n="mob_market">Market</span>
+    </button>
+    <button class="mobile-nav-link flex flex-col items-center justify-center w-14 text-[#858D82]" data-tab="farm">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+      <span class="text-[10px] mt-1 font-medium" data-i18n="mob_profile">My Farm</span>
+    </button>
+  </nav>
+
+  <!-- ================= FARMER LOGIN / AUTHENTICATION MODAL ================= -->
+  <div id="farmer-auth-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="farm-card w-full max-w-md bg-white p-6 sm:p-8 space-y-6">
+      
+      <div class="flex items-start justify-between pb-4 border-b border-[#E8E5DC]">
+        <div class="flex items-center space-x-3">
+          <img src="/static/img/logo.png" alt="Logo" class="w-12 h-12 rounded-xl object-cover shadow-sm">
+          <div>
+            <h3 class="font-bold text-lg text-[#133E2B]" data-i18n="login_modal_title">Farmer Account Login</h3>
+            <p class="text-xs text-[#575E54]" data-i18n="login_modal_subtitle">Access your farm parcels, soil health cards, and order tracking</p>
+          </div>
+        </div>
+        <button id="close-auth-modal-btn" class="text-[#858D82] hover:text-black p-1">✕</button>
+      </div>
+
+      <!-- Auth Tabs -->
+      <div class="flex border-b border-[#E8E5DC]">
+        <button id="auth-tab-password" class="flex-1 py-2.5 text-xs font-bold text-[#133E2B] border-b-2 border-[#133E2B] transition flex items-center justify-center space-x-1" data-i18n="login_tab_password">
+          <span>🔑</span>
+          <span>Password Login</span>
+        </button>
+        <button id="auth-tab-otp" class="flex-1 py-2.5 text-xs font-semibold text-[#858D82] transition flex items-center justify-center space-x-1" data-i18n="login_tab_otp">
+          <span>📱</span>
+          <span>Mobile OTP</span>
+        </button>
+        <button id="auth-tab-demo" class="flex-1 py-2.5 text-xs font-semibold text-[#858D82] transition flex items-center justify-center space-x-1" data-i18n="login_tab_demo">
+          <span>⚡</span>
+          <span>Demo Accounts</span>
+        </button>
+      </div>
+
+      <!-- Panel 1: Username & Password Login (PRIMARY) -->
+      <div id="auth-panel-password" class="space-y-4">
+        <div id="auth-password-error" class="hidden p-3 rounded-xl bg-[#FEF2F2] border border-[#FECACA] text-xs text-[#DC2626] font-medium"></div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#1C1E1B] mb-1.5" data-i18n="login_username_label">Username, Email, or Mobile</label>
+          <div class="relative">
+            <input type="text" id="auth-username-input" value="farmer_gill" placeholder="e.g. farmer_gill or gillamritpal2007-1@gmail.com" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] text-sm text-[#1C1E1B] focus:ring-2 focus:ring-[#133E2B] focus:border-[#133E2B] transition">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="block text-xs font-bold text-[#1C1E1B]" data-i18n="login_password_label">Password</label>
+            <button type="button" id="toggle-password-visibility-btn" class="text-[11px] text-[#133E2B] font-semibold hover:underline">Show Password</button>
+          </div>
+          <div class="relative">
+            <input type="password" id="auth-password-input" value="password123" placeholder="Enter password (e.g. password123)" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] text-sm text-[#1C1E1B] focus:ring-2 focus:ring-[#133E2B] focus:border-[#133E2B] transition">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-[#575E54]">
+          <label class="flex items-center space-x-2 cursor-pointer select-none">
+            <input type="checkbox" id="auth-remember-me" checked class="rounded border-[#D5D0C2] text-[#133E2B] focus:ring-[#133E2B]">
+            <span data-i18n="login_remember_me">Remember this device</span>
+          </label>
+          <span class="text-[#133E2B] font-medium cursor-pointer hover:underline" onclick="alert('Demo passwords: password123, punjab123, or kisan123')">Forgot Password?</span>
+        </div>
+
+        <button type="button" id="auth-password-login-btn" class="w-full py-3 rounded-xl bg-[#133E2B] text-white font-bold text-sm hover:bg-[#1A523A] transition shadow-md flex items-center justify-center space-x-2">
+          <span>🌾</span>
+          <span data-i18n="login_btn_submit">Sign In to Farm</span>
+        </button>
+
+        <!-- 1-Click Quick Credential Chips -->
+        <div class="pt-3 border-t border-[#EDE8DC] space-y-2">
+          <p class="text-[11px] font-bold text-[#575E54]" data-i18n="login_quick_demo_hint">Quick Test Credentials:</p>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <button type="button" class="quick-cred-chip p-2 rounded-lg bg-[#FAF9F5] border border-[#E8E4DA] hover:bg-[#F2EFE9] text-left transition" data-user="farmer_gill" data-pass="password123">
+              <span class="font-bold text-[#133E2B] block text-[11px]">🌾 Amritpal (18.5 Ac)</span>
+              <span class="text-[10px] text-[#858D82]">farmer_gill • pass123</span>
+            </button>
+            <button type="button" class="quick-cred-chip p-2 rounded-lg bg-[#FAF9F5] border border-[#E8E4DA] hover:bg-[#F2EFE9] text-left transition" data-user="farmer_1" data-pass="punjab123">
+              <span class="font-bold text-[#133E2B] block text-[11px]">🚜 Gurpreet (14.5 Ac)</span>
+              <span class="text-[10px] text-[#858D82]">farmer_1 • punjab123</span>
+            </button>
+            <button type="button" class="quick-cred-chip p-2 rounded-lg bg-[#FAF9F5] border border-[#E8E4DA] hover:bg-[#F2EFE9] text-left transition" data-user="farmer_2" data-pass="kisan123">
+              <span class="font-bold text-[#133E2B] block text-[11px]">🌱 Ramesh (9 Ac)</span>
+              <span class="text-[10px] text-[#858D82]">farmer_2 • kisan123</span>
+            </button>
+            <button type="button" class="quick-cred-chip p-2 rounded-lg bg-[#FAF9F5] border border-[#E8E4DA] hover:bg-[#F2EFE9] text-left transition" data-user="farmer_3" data-pass="kisan123">
+              <span class="font-bold text-[#133E2B] block text-[11px]">🌾 Rajendra (18 Ac)</span>
+              <span class="text-[10px] text-[#858D82]">farmer_3 • kisan123</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Mobile OTP -->
+      <div id="auth-panel-otp" class="hidden space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#1C1E1B] mb-1" data-i18n="login_phone_label">Indian Mobile Number</label>
+          <div class="flex space-x-2">
+            <span class="px-3 py-2.5 rounded-xl bg-[#F2EFE9] border border-[#D5D0C2] text-xs font-bold text-[#1C1E1B] flex items-center">+91</span>
+            <input type="tel" id="auth-phone-input" value="9876543210" placeholder="e.g. 98765 43210" class="flex-1 px-4 py-2.5 rounded-xl border border-[#D5D0C2] text-sm text-[#1C1E1B] focus:ring-2 focus:ring-[#133E2B]">
+            <button id="auth-send-otp-btn" class="px-4 py-2.5 rounded-xl bg-[#133E2B] text-white text-xs font-bold hover:bg-[#1A523A] transition" data-i18n="login_btn_send_otp">Send OTP</button>
+          </div>
+        </div>
+
+        <div id="auth-otp-notice" class="hidden p-3 rounded-xl bg-[#E8F5E9] border border-[#C8E6C9] text-xs text-[#166534]"></div>
+
+        <div id="auth-otp-input-group" class="hidden space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-[#1C1E1B] mb-1" data-i18n="login_otp_label">Enter 4-Digit OTP</label>
+            <input type="text" id="auth-otp-code-input" maxlength="4" placeholder="8812" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] text-center tracking-widest text-lg font-bold text-[#133E2B]">
+          </div>
+          <button id="auth-verify-otp-btn" class="w-full py-3 rounded-xl bg-[#133E2B] text-white font-bold text-sm hover:bg-[#1A523A] transition shadow-md" data-i18n="login_btn_verify">Verify & Login</button>
+        </div>
+      </div>
+
+      <!-- Panel 2: 1-Click Demo Profiles -->
+      <div id="auth-panel-demo" class="hidden space-y-3">
+        <p class="text-xs text-[#575E54]" data-i18n="login_demo_label">Select a profile to login instantly:</p>
+        <div id="auth-demo-profiles-list" class="space-y-2"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= FARMER PROFILE DRAWER ================= -->
+  <div id="farmer-profile-drawer" class="hidden fixed inset-0 z-50 overflow-hidden bg-black/40 backdrop-blur-sm flex justify-end">
+    <div class="w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between p-6">
+      <div class="space-y-6">
+        <div class="flex items-center justify-between pb-3 border-b border-[#E8E5DC]">
+          <h3 class="font-bold text-base text-[#1C1E1B]">Farmer Profile Details</h3>
+          <button id="close-profile-drawer-btn" class="text-[#858D82] hover:text-black">✕</button>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <div class="w-14 h-14 rounded-2xl bg-[#133E2B] text-white flex items-center justify-center font-bold text-xl">🌾</div>
+          <div>
+            <h4 id="drawer-farmer-name" class="font-extrabold text-lg text-[#1C1E1B]">Sardar Gurpreet Singh</h4>
+            <p id="drawer-farmer-village" class="text-xs text-[#575E54]">Bhamian Kalan, Ludhiana, Punjab</p>
+          </div>
+        </div>
+
+        <div class="bg-[#FAF9F5] p-4 rounded-xl border border-[#EDE8DC] space-y-2.5 text-xs">
+          <div class="flex justify-between"><span>Kisan ID:</span> <strong id="drawer-farmer-kisan-id" class="text-[#1C1E1B]">PB-LU-2026-8812</strong></div>
+          <div class="flex justify-between"><span>Total Cultivated Land:</span> <strong id="drawer-farmer-acres" class="text-[#1C1E1B]">14.5 Acres</strong></div>
+          <div class="flex justify-between"><span>Tubewells:</span> <strong id="drawer-farmer-tubewells" class="text-[#1C1E1B]">2 Submersible</strong></div>
+          <div class="flex justify-between"><span>Soil Health Card ID:</span> <strong id="drawer-farmer-shc" class="text-[#16A34A]">PAU-SHC-9042</strong></div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-[#E8E5DC]">
+        <button onclick="document.getElementById('farmer-profile-drawer').classList.add('hidden'); openAuthLoginModal();" class="w-full py-2.5 rounded-xl bg-[#F2EFE9] text-[#1C1E1B] text-xs font-bold hover:bg-[#E4E0D5] transition">Switch Account</button>
+        <button id="auth-logout-btn" class="w-full py-2.5 rounded-xl bg-[#FEE2E2] text-[#DC2626] text-xs font-bold hover:bg-[#FECACA] transition" data-i18n="login_btn_logout">Logout Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FIELDAI KISAN MULTI-OPTION PAYMENT GATEWAY MODAL ================= -->
+  <div id="upi-payment-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="farm-card w-full max-w-xl max-h-[92vh] overflow-y-auto bg-white p-6 sm:p-8 space-y-5">
+      
+      <div class="flex items-start justify-between pb-3 border-b border-[#E8E5DC]">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-[#133E2B] text-white flex items-center justify-center text-xl font-bold shadow-sm">₹</div>
+          <div>
+            <h3 class="font-bold text-lg text-[#133E2B]" data-i18n="pay_modal_title">FIELDAI Kisan Payment Gateway</h3>
+            <p class="text-xs text-[#575E54]" data-i18n="pay_modal_sub">Scan UPI QR, launch mobile apps, or pay via Kisan Credit Card / COD</p>
+          </div>
+        </div>
+        <button id="close-upi-modal-btn" class="text-[#858D82] hover:text-black p-1 text-lg">✕</button>
+      </div>
+
+      <!-- Amount Header Banner -->
+      <div class="p-4 rounded-2xl bg-gradient-to-r from-[#133E2B] via-[#184E37] to-[#1A523A] text-white flex items-center justify-between shadow-sm">
+        <div>
+          <span class="text-xs text-[#A7C2B4] font-medium" data-i18n="pay_amount_label">Amount to Pay:</span>
+          <div id="upi-amount-display" class="text-3xl font-extrabold text-white mt-0.5 tracking-tight">₹0</div>
+        </div>
+        <div class="text-right text-xs">
+          <span class="text-[#A7C2B4]" data-i18n="pay_order_id_label">Order ID:</span>
+          <div id="upi-order-id-display" class="font-mono font-bold text-white text-sm">KMP-XXXXXX</div>
+          <span class="inline-block mt-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30">NPCI Verified</span>
+        </div>
+      </div>
+
+      <!-- Payment Method Navigation Tabs -->
+      <div class="flex border-b border-[#E8E5DC] text-xs font-bold">
+        <button type="button" data-pay-method="upi" class="pay-method-tab flex-1 py-2.5 text-center border-b-2 border-[#133E2B] text-[#133E2B] transition flex items-center justify-center space-x-1.5">
+          <span>📱</span>
+          <span data-i18n="pay_tab_upi">UPI & QR Code</span>
+        </button>
+        <button type="button" data-pay-method="kcc" class="pay-method-tab flex-1 py-2.5 text-center border-b-2 border-transparent text-[#858D82] hover:text-[#133E2B] transition flex items-center justify-center space-x-1.5">
+          <span>💳</span>
+          <span data-i18n="pay_tab_kcc">Kisan Credit Card</span>
+        </button>
+        <button type="button" data-pay-method="cod" class="pay-method-tab flex-1 py-2.5 text-center border-b-2 border-transparent text-[#858D82] hover:text-[#133E2B] transition flex items-center justify-center space-x-1.5">
+          <span>🚚</span>
+          <span data-i18n="pay_tab_cod">Cash on Delivery</span>
+        </button>
+        <button type="button" data-pay-method="netbanking" class="pay-method-tab flex-1 py-2.5 text-center border-b-2 border-transparent text-[#858D82] hover:text-[#133E2B] transition flex items-center justify-center space-x-1.5">
+          <span>🏛️</span>
+          <span data-i18n="pay_tab_netbanking">Net Banking</span>
+        </button>
+      </div>
+
+      <!-- ================= TAB 1: UPI & QR CODE ================= -->
+      <div id="pay-panel-upi" class="space-y-4">
+        <!-- Configurable Receiver UPI ID Box -->
+        <div class="p-3.5 rounded-xl bg-[#FAF9F5] border border-[#EDE8DC] space-y-2">
+          <div class="flex justify-between items-center">
+            <label class="block text-xs font-bold text-[#1C1E1B]" data-i18n="pay_upi_id_label">Pay to UPI ID (Your Account):</label>
+            <span class="text-[11px] text-[#16A34A] font-semibold">Active & Live</span>
+          </div>
+          <div class="flex space-x-2">
+            <input type="text" id="custom-upi-id-input" value="gillamritpal2007-1@okicici" placeholder="e.g. yourname@okaxis, farmer@upi" class="flex-1 px-3 py-2 rounded-lg border border-[#D5D0C2] text-xs font-mono font-bold text-[#133E2B] bg-white">
+            <button id="update-upi-id-btn" class="px-3.5 py-2 rounded-lg bg-[#133E2B] text-white text-xs font-bold hover:bg-[#1A523A] transition">Update UPI</button>
+          </div>
+          <p class="text-[11px] text-[#858D82]">Payments will be directly credited to this UPI VPA handle.</p>
+        </div>
+
+        <!-- Dynamic Scannable QR Code -->
+        <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-[#FAF9F5] border border-[#EDE8DC] text-center space-y-3">
+          <div class="flex items-center space-x-1.5 text-xs font-bold text-[#1C1E1B]">
+            <span>📷</span>
+            <span data-i18n="pay_scan_qr">Scan with Google Pay, PhonePe, Paytm, BHIM or any UPI App</span>
+          </div>
+          
+          <div class="relative p-2.5 bg-white rounded-2xl shadow-md border border-[#E4E0D5]">
+            <img id="upi-qr-image" src="" alt="Real UPI QR Code" class="w-52 h-52 object-contain rounded-xl">
+            <canvas id="upi-qr-canvas" width="220" height="220" class="hidden"></canvas>
+            <div class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-[#133E2B] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-white shadow">
+              100% REAL UPI QR
+            </div>
+          </div>
+
+          <div class="text-xs text-[#575E54] space-y-1 pt-1">
+            <div>Receiver VPA: <strong id="upi-receiver-display" class="text-[#133E2B] font-mono">gillamritpal2007-1@okicici</strong></div>
+            <div class="text-[10px] text-[#858D82] font-mono break-all max-w-sm" id="upi-link-display">upi://pay?pa=...</div>
+          </div>
+
+          <!-- Quick QR Utilities -->
+          <div class="flex flex-wrap gap-2 justify-center pt-1 text-xs">
+            <button id="download-qr-btn" type="button" class="px-3 py-1.5 rounded-lg bg-white border border-[#D5D0C2] text-[#133E2B] font-semibold hover:bg-[#F2EFE9] transition flex items-center space-x-1 shadow-sm">
+              <span>📥</span>
+              <span>Download QR</span>
+            </button>
+            <button id="copy-upi-id-btn" type="button" class="px-3 py-1.5 rounded-lg bg-white border border-[#D5D0C2] text-[#133E2B] font-semibold hover:bg-[#F2EFE9] transition flex items-center space-x-1 shadow-sm">
+              <span>📋</span>
+              <span>Copy UPI ID</span>
+            </button>
+            <button id="copy-upi-link-btn" type="button" class="px-3 py-1.5 rounded-lg bg-white border border-[#D5D0C2] text-[#133E2B] font-semibold hover:bg-[#F2EFE9] transition flex items-center space-x-1 shadow-sm">
+              <span>🔗</span>
+              <span>Copy Pay Link</span>
+            </button>
+          </div>
+
+          <!-- Mobile 1-Click Launch Buttons -->
+          <div class="w-full pt-2 border-t border-[#E8E5DC] space-y-2">
+            <span class="block text-[11px] font-bold text-[#575E54] uppercase tracking-wider">Tap to Pay via Mobile App:</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <a id="gpay-app-btn" href="#" class="py-2 px-2.5 rounded-xl bg-white border border-[#D5D0C2] hover:border-[#133E2B] text-xs font-bold text-[#1C1E1B] hover:bg-[#F2EFE9] transition flex items-center justify-center space-x-1 shadow-sm">
+                <span>🟢</span>
+                <span>GPay</span>
+              </a>
+              <a id="phonepe-app-btn" href="#" class="py-2 px-2.5 rounded-xl bg-white border border-[#D5D0C2] hover:border-[#133E2B] text-xs font-bold text-[#5F259F] hover:bg-[#F2EFE9] transition flex items-center justify-center space-x-1 shadow-sm">
+                <span>🟣</span>
+                <span>PhonePe</span>
+              </a>
+              <a id="paytm-app-btn" href="#" class="py-2 px-2.5 rounded-xl bg-white border border-[#D5D0C2] hover:border-[#133E2B] text-xs font-bold text-[#00BAF2] hover:bg-[#F2EFE9] transition flex items-center justify-center space-x-1 shadow-sm">
+                <span>🔵</span>
+                <span>Paytm</span>
+              </a>
+              <a id="bhim-app-btn" href="#" class="py-2 px-2.5 rounded-xl bg-white border border-[#D5D0C2] hover:border-[#133E2B] text-xs font-bold text-[#0078D7] hover:bg-[#F2EFE9] transition flex items-center justify-center space-x-1 shadow-sm">
+                <span>🟠</span>
+                <span>BHIM</span>
+              </a>
+            </div>
+            <a id="upi-direct-app-btn" href="#" class="w-full py-2.5 rounded-xl bg-[#133E2B] text-white text-xs font-bold hover:bg-[#1A523A] transition shadow-sm flex items-center justify-center space-x-1.5">
+              <span>📲</span>
+              <span>Launch Default UPI App</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 1-Click Instant Sandbox Pay & 12-Digit UTR Form -->
+        <div class="p-4 rounded-2xl bg-[#F0FDF4] border border-[#BBF7D0] space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-[#166534]">⚡ Quick Testing & Verification</span>
+            <span class="text-[10px] font-bold bg-[#DCFCE7] text-[#16A34A] px-2 py-0.5 rounded">NPCI Sandbox</span>
+          </div>
+
+          <button id="instant-verify-upi-btn" type="button" class="w-full py-3 rounded-xl bg-[#16A34A] text-white font-extrabold text-sm hover:bg-[#15803D] transition shadow-md flex items-center justify-center space-x-2">
+            <span>⚡</span>
+            <span data-i18n="pay_instant_test_btn">Instant 1-Click Pay & Verify (Sandbox Mode)</span>
+          </button>
+
+          <div class="relative flex items-center justify-center my-2">
+            <div class="border-t border-[#BBF7D0] w-full"></div>
+            <span class="bg-[#F0FDF4] px-3 text-[11px] font-semibold text-[#166534]">OR ENTER 12-DIGIT UTR</span>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#1C1E1B] mb-1" data-i18n="pay_utr_label">Enter 12-Digit UPI Transaction ID (UTR):</label>
+            <div class="flex space-x-2">
+              <input type="text" id="upi-utr-input" maxlength="16" placeholder="e.g. 429182749102" class="flex-1 px-4 py-2.5 rounded-xl border border-[#D5D0C2] text-sm font-mono font-bold text-[#1C1E1B] bg-white focus:ring-2 focus:ring-[#133E2B]">
+              <button id="autofill-demo-utr-btn" type="button" class="px-3 py-2.5 rounded-xl bg-white border border-[#D5D0C2] text-[#133E2B] text-xs font-semibold hover:bg-[#F2EFE9] transition">Demo UTR</button>
+            </div>
+          </div>
+          
+          <button id="verify-utr-btn" type="button" class="w-full py-3 rounded-xl bg-[#133E2B] text-white font-bold text-sm hover:bg-[#1A523A] transition shadow-md flex items-center justify-center space-x-2">
+            <span>✓</span>
+            <span data-i18n="pay_btn_verify_utr">Verify UTR & Complete Order</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= TAB 2: KISAN CREDIT CARD (KCC) ================= -->
+      <div id="pay-panel-kcc" class="hidden space-y-4">
+        <div class="p-4 rounded-2xl bg-gradient-to-br from-[#1C1E1B] to-[#2D312E] text-white space-y-3 shadow-md">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#A7C2B4]">PM-KISAN RuPay Credit Card</span>
+            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-amber-500/30 text-amber-300">4% Subvention</span>
+          </div>
+          <div class="font-mono text-lg font-extrabold tracking-widest text-emerald-300">4218 •••• •••• 9012</div>
+          <div class="flex justify-between items-end text-xs text-[#D1D5DB]">
+            <div>
+              <span class="text-[10px] text-[#9CA3AF] block uppercase">Cardholder</span>
+              <strong class="text-white" id="kcc-cardholder-name">Amritpal Singh Gill</strong>
+            </div>
+            <div>
+              <span class="text-[10px] text-[#9CA3AF] block uppercase">Valid Thru</span>
+              <strong class="text-white">12/29</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="block font-bold text-[#1C1E1B] mb-1">KCC Account Number</label>
+            <input type="text" id="kcc-number-input" value="4218 8901 2345 9012" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] font-mono text-sm font-bold text-[#1C1E1B]">
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-[#1C1E1B] mb-1">Expiry Date</label>
+              <input type="text" value="12/29" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] font-mono text-sm font-bold text-[#1C1E1B]">
+            </div>
+            <div>
+              <label class="block font-bold text-[#1C1E1B] mb-1">CVV / Security Code</label>
+              <input type="password" value="882" maxlength="3" class="w-full px-4 py-2.5 rounded-xl border border-[#D5D0C2] font-mono text-sm font-bold text-[#1C1E1B]">
+            </div>
+          </div>
+          <div class="p-3 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] text-[#92400E] text-[11px]">
+            <strong>Govt KCC Benefit:</strong> Eligible for 3% prompt repayment incentive, reducing net interest rate to 4% p.a.
+          </div>
+          <button id="kcc-pay-btn" type="button" class="w-full py-3.5 rounded-xl bg-[#16A34A] text-white font-bold text-sm hover:bg-[#15803D] transition shadow-md flex items-center justify-center space-x-2">
+            <span>💳</span>
+            <span data-i18n="pay_kcc_btn">Pay with Kisan Credit Card</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= TAB 3: CASH ON DELIVERY (COD) ================= -->
+      <div id="pay-panel-cod" class="hidden space-y-4">
+        <div class="p-4 rounded-2xl bg-[#FAF9F5] border border-[#EDE8DC] space-y-3 text-xs">
+          <div class="flex items-center space-x-2 text-[#133E2B] font-bold text-sm">
+            <span>🚚</span>
+            <span>Doorstep Farm Delivery</span>
+          </div>
+          <div class="space-y-1 text-[#575E54]">
+            <p><strong class="text-[#1C1E1B]">Delivery Village:</strong> <span id="cod-delivery-address">Gill Kalan, Ludhiana, Punjab</span></p>
+            <p><strong class="text-[#1C1E1B]">Estimated Delivery:</strong> Within 24-48 hours by Kisan Kendra Express</p>
+            <p><strong class="text-[#1C1E1B]">Verification:</strong> Verified agronomist will inspect CIBRC seal at time of delivery.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-[#DCFCE7] border border-[#BBF7D0] text-[#166534] text-[11px]">
+            <strong>Zero Advance Payment:</strong> You can pay in cash or via mobile UPI QR directly to the delivery agronomist on receipt.
+          </div>
+        </div>
+        <button id="cod-pay-btn" type="button" class="w-full py-3.5 rounded-xl bg-[#133E2B] text-white font-bold text-sm hover:bg-[#1A523A] transition shadow-md flex items-center justify-center space-x-2">
+          <span>🚚</span>
+          <span data-i18n="pay_cod_btn">Confirm Order (Pay on Delivery)</span>
+        </button>
+      </div>
+
+      <!-- ================= TAB 4: NET BANKING ================= -->
+      <div id="pay-panel-netbanking" class="hidden space-y-4">
+        <div class="space-y-3 text-xs">
+          <label class="block font-bold text-[#1C1E1B]">Select Agricultural / Commercial Bank:</label>
+          <div class="grid grid-cols-2 gap-2 font-semibold">
+            <label class="flex items-center space-x-2 p-3 rounded-xl border border-[#D5D0C2] hover:border-[#133E2B] cursor-pointer bg-[#FAF9F5]">
+              <input type="radio" name="netbank" checked class="text-[#133E2B]">
+              <span>State Bank of India (SBI)</span>
+            </label>
+            <label class="flex items-center space-x-2 p-3 rounded-xl border border-[#D5D0C2] hover:border-[#133E2B] cursor-pointer bg-[#FAF9F5]">
+              <input type="radio" name="netbank" class="text-[#133E2B]">
+              <span>Punjab National Bank (PNB)</span>
+            </label>
+            <label class="flex items-center space-x-2 p-3 rounded-xl border border-[#D5D0C2] hover:border-[#133E2B] cursor-pointer bg-[#FAF9F5]">
+              <input type="radio" name="netbank" class="text-[#133E2B]">
+              <span>HDFC Bank</span>
+            </label>
+            <label class="flex items-center space-x-2 p-3 rounded-xl border border-[#D5D0C2] hover:border-[#133E2B] cursor-pointer bg-[#FAF9F5]">
+              <input type="radio" name="netbank" class="text-[#133E2B]">
+              <span>ICICI Bank</span>
+            </label>
+          </div>
+          <button id="netbanking-pay-btn" type="button" class="w-full py-3.5 rounded-xl bg-[#133E2B] text-white font-bold text-sm hover:bg-[#1A523A] transition shadow-md flex items-center justify-center space-x-2">
+            <span>🏛️</span>
+            <span data-i18n="pay_netbanking_btn">Authorize via Net Banking</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= KISAN GST TAX INVOICE MODAL ================= -->
+  <div id="kisan-invoice-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="farm-card w-full max-w-lg bg-white p-6 sm:p-8 space-y-6">
+      
+      <div class="flex items-start justify-between pb-4 border-b border-[#E8E5DC]">
+        <div class="flex items-center space-x-3">
+          <img src="/static/img/logo.png" alt="Logo" class="w-10 h-10 rounded-xl object-cover">
+          <div>
+            <h3 class="font-extrabold text-base text-[#133E2B]" data-i18n="pay_success_title">UPI Payment Verified & Order Confirmed!</h3>
+            <span class="inline-block text-[11px] font-bold text-[#16A34A] bg-[#DCFCE7] px-2 py-0.5 rounded">NPCI Instant Settlement Complete</span>
+          </div>
+        </div>
+        <button id="close-invoice-modal-btn" class="text-[#858D82] hover:text-black">✕</button>
+      </div>
+
+      <!-- Printable Invoice Sheet -->
+      <div id="printable-invoice-content" class="bg-[#FAF9F5] p-5 rounded-2xl border border-[#EDE8DC] space-y-4 text-xs">
+        <div class="flex justify-between items-baseline border-b border-[#E8E5DC] pb-3">
+          <div>
+            <span class="text-[11px] text-[#858D82] block">Tax Invoice No:</span>
+            <strong id="inv-no" class="text-sm font-mono text-[#133E2B]">INV-2026-XXXX</strong>
+          </div>
+          <div class="text-right">
+            <span class="text-[11px] text-[#858D82] block">Order Ref:</span>
+            <strong id="inv-order-id" class="font-mono text-[#1C1E1B]">KMP-XXXXXX</strong>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-[#575E54]">
+          <div><span>Farmer:</span> <strong id="inv-farmer" class="text-[#1C1E1B] block">Sardar Gurpreet</strong></div>
+          <div><span>Delivery:</span> <strong id="inv-address" class="text-[#1C1E1B] block">Ludhiana, Punjab</strong></div>
+          <div><span>Payment Ref (UTR):</span> <strong id="inv-utr" class="text-[#133E2B] font-mono block">429182749102</strong></div>
+          <div><span>Timestamp:</span> <strong id="inv-date" class="text-[#1C1E1B] block">Today</strong></div>
+        </div>
+
+        <!-- Items Table -->
+        <div class="pt-2 border-t border-[#E8E5DC]">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="text-[11px] text-[#858D82] border-b border-[#E8E5DC]">
+                <th class="py-1.5">Product</th>
+                <th class="py-1.5 text-center">Qty</th>
+                <th class="py-1.5 text-right">Price</th>
+              </tr>
+            </thead>
+            <tbody id="inv-items-table"></tbody>
+          </table>
+        </div>
+
+        <div class="flex justify-between items-center pt-3 border-t border-[#E8E5DC] text-sm">
+          <strong class="text-[#1C1E1B]">Total Paid:</strong>
+          <strong id="inv-amount" class="text-xl font-extrabold text-[#133E2B]">₹0</strong>
+        </div>
+
+        <div class="text-[10px] text-[#858D82] text-center pt-2">
+          CIBRC Reg Batch Verified • GSTIN: <span id="inv-gstin">03AABCF8912P1ZN</span>
+        </div>
+      </div>
+
+      <div class="flex space-x-3 justify-end pt-2">
+        <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-[#F2EFE9] text-[#1C1E1B] text-xs font-bold hover:bg-[#E5E0D5] transition" data-i18n="pay_invoice_btn">Print / Save Invoice</button>
+        <button onclick="document.getElementById('kisan-invoice-modal').classList.add('hidden')" class="px-6 py-2.5 rounded-xl bg-[#133E2B] text-white text-xs font-bold hover:bg-[#1A523A] transition">Done</button>
+      </div>
+
+  <!-- ================= DEVELOPER & AGRITECH DEBUG HUD MODAL ================= -->
+  <div id="debug-hud-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="farm-card w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-[#1C1E1B] text-[#E5E7EB] p-6 sm:p-8 space-y-5 font-mono border border-emerald-500/30 shadow-2xl">
+      
+      <div class="flex items-start justify-between pb-3 border-b border-gray-700">
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl bg-emerald-600/30 text-emerald-400 flex items-center justify-center text-lg font-bold border border-emerald-500/40">🐞</div>
+          <div>
+            <h3 class="font-bold text-base text-white">FIELDAI Agritech Debug & Diagnostics HUD</h3>
+            <p class="text-xs text-emerald-400">Live Gateway Inspector, Session State & Health Prober</p>
+          </div>
+        </div>
+        <button id="close-debug-hud-btn" class="text-gray-400 hover:text-white p-1 text-lg">✕</button>
+      </div>
+
+      <!-- Quick Action Toolbar -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+        <button id="dbg-seed-cart-btn" type="button" class="p-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-emerald-400 border border-gray-700 transition flex flex-col items-center justify-center text-center">
+          <span class="text-sm">🛒</span>
+          <span class="font-bold mt-1">Seed Test Cart</span>
+        </button>
+        <button id="dbg-instant-order-btn" type="button" class="p-2.5 rounded-xl bg-emerald-900/40 hover:bg-emerald-800/50 text-emerald-300 border border-emerald-700 transition flex flex-col items-center justify-center text-center">
+          <span class="text-sm">⚡</span>
+          <span class="font-bold mt-1">Instant Order</span>
+        </button>
+        <button id="dbg-sim-disease-btn" type="button" class="p-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-amber-300 border border-gray-700 transition flex flex-col items-center justify-center text-center">
+          <span class="text-sm">🔬</span>
+          <span class="font-bold mt-1">Sim Disease</span>
+        </button>
+        <button id="dbg-ping-health-btn" type="button" class="p-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-cyan-300 border border-gray-700 transition flex flex-col items-center justify-center text-center">
+          <span class="text-sm">💓</span>
+          <span class="font-bold mt-1">Ping Health</span>
+        </button>
+      </div>
+
+      <!-- Diagnostics Tabs -->
+      <div class="flex border-b border-gray-700 text-xs font-bold">
+        <button type="button" data-dbg-tab="gateway" class="dbg-tab-btn flex-1 py-2 text-center border-b-2 border-emerald-400 text-emerald-400">Payment Gateway</button>
+        <button type="button" data-dbg-tab="session" class="dbg-tab-btn flex-1 py-2 text-center border-b-2 border-transparent text-gray-400 hover:text-white">Active Session</button>
+        <button type="button" data-dbg-tab="system" class="dbg-tab-btn flex-1 py-2 text-center border-b-2 border-transparent text-gray-400 hover:text-white">System & APIs</button>
+        <button type="button" data-dbg-tab="logs" class="dbg-tab-btn flex-1 py-2 text-center border-b-2 border-transparent text-gray-400 hover:text-white">Live Event Log</button>
+      </div>
+
+      <!-- Tab 1: Payment Gateway -->
+      <div id="dbg-panel-gateway" class="space-y-3 text-xs">
+        <div class="bg-black/40 p-3.5 rounded-xl border border-gray-800 space-y-2">
+          <div class="flex justify-between"><span>Payment Receiver VPA:</span> <strong class="text-emerald-400" id="dbg-upi-vpa">gillamritpal2007-1@okicici</strong></div>
+          <div class="flex justify-between"><span>NPCI Gateway Status:</span> <strong class="text-emerald-400">🟢 CONNECTED & OPERATIONAL</strong></div>
+          <div class="flex justify-between"><span>Current Cart Items:</span> <strong class="text-white" id="dbg-cart-count">0 items</strong></div>
+          <div class="flex justify-between"><span>Current Cart Value:</span> <strong class="text-emerald-300" id="dbg-cart-total">₹0</strong></div>
+          <div class="flex justify-between"><span>Total Persisted Orders:</span> <strong class="text-amber-400" id="dbg-orders-count">1 orders</strong></div>
+        </div>
+        <div class="p-3 bg-gray-900 rounded-xl text-[11px] text-gray-400 border border-gray-800">
+          <strong class="text-white block mb-1">UPI URI Formula:</strong>
+          <code class="text-emerald-300 text-[10px] break-all">upi://pay?pa={UPI_ID}&pn={NAME}&am={AMOUNT}&cu=INR&tn={TRANSACTION_NOTE}</code>
+        </div>
+      </div>
+
+      <!-- Tab 2: Active Session -->
+      <div id="dbg-panel-session" class="hidden space-y-3 text-xs">
+        <pre id="dbg-session-json" class="p-3.5 bg-black/50 rounded-xl text-emerald-300 overflow-x-auto text-[11px] max-h-56 leading-relaxed border border-gray-800"></pre>
+      </div>
+
+      <!-- Tab 3: System & APIs -->
+      <div id="dbg-panel-system" class="hidden space-y-3 text-xs">
+        <div class="bg-black/40 p-3.5 rounded-xl border border-gray-800 space-y-2">
+          <div class="flex justify-between"><span>Server Version:</span> <strong class="text-white">v2.4.0 (Python 3.11 / Flask)</strong></div>
+          <div class="flex justify-between"><span>Debug Mode:</span> <strong class="text-emerald-400">ENABLED (Auto-Reloading)</strong></div>
+          <div class="flex justify-between"><span>API Latency:</span> <strong class="text-cyan-400" id="dbg-api-latency">Probing...</strong></div>
+          <div class="flex justify-between"><span>Loaded Crops / Products:</span> <strong class="text-white">34 Crops • 12 Products</strong></div>
+          <div class="flex justify-between"><span>Multilingual Dictionary:</span> <strong class="text-emerald-300">204 Keys (EN / PA / HI)</strong></div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Live Event Log -->
+      <div id="dbg-panel-logs" class="hidden space-y-2 text-xs">
+        <div class="flex justify-between items-center text-[11px]">
+          <span class="text-gray-400">Captured API Requests & Client Events:</span>
+          <button id="dbg-clear-logs-btn" type="button" class="text-xs text-red-400 hover:underline">Clear Logs</button>
+        </div>
+        <div id="dbg-logs-container" class="p-3 bg-black/60 rounded-xl border border-gray-800 h-44 overflow-y-auto space-y-1.5 text-[11px] font-mono"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Floating Debug HUD Toggle Button -->
+  <button id="debug-hud-toggle-btn" type="button" class="fixed bottom-6 left-6 z-40 px-3.5 py-2 rounded-xl bg-[#1C1E1B]/95 text-white text-xs font-mono font-bold shadow-2xl backdrop-blur-md border border-white/20 hover:bg-black transition flex items-center space-x-2">
+    <span class="w-2.5 h-2.5 rounded-full bg-[#22C55E] animate-pulse"></span>
+    <span data-i18n="debug_title">🐞 Debug HUD</span>
+  </button>
+
+  <!-- ================= PRODUCT SAFETY & DETAILS MODAL ================= -->
+  <div id="product-details-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="farm-card w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white p-6 sm:p-8 space-y-6">
+      
+      <div class="flex items-start justify-between pb-4 border-b border-[#E8E5DC]">
+        <div class="flex items-center space-x-4">
+          <img id="modal-prod-img" src="" alt="Product" class="w-20 h-20 object-contain rounded-xl bg-[#FAF9F5] p-2 border border-[#E8E5DC] drop-shadow-md">
+          <div>
+            <h3 id="modal-prod-title" class="text-xl font-bold text-[#1C1E1B]">Product Title</h3>
+            <p id="modal-prod-brand" class="text-xs text-[#575E54]">Brand • CIBRC Reg</p>
+            <div class="flex items-baseline space-x-2 mt-1">
+              <span id="modal-prod-price" class="text-xl font-extrabold text-[#133E2B]">₹0</span>
+              <span id="modal-prod-mrp" class="text-xs text-[#858D82] line-through">₹0</span>
+            </div>
+          </div>
+        </div>
+        <button id="close-product-modal-btn" class="p-2 rounded-xl text-[#858D82] hover:bg-[#F2EFE9] transition">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <strong class="text-[#1C1E1B] block mb-1">Active Formulation:</strong>
+          <p id="modal-prod-active" class="text-[#575E54] bg-[#FAF9F5] p-2.5 rounded-lg border border-[#EDE8DC]"></p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <strong class="text-[#1C1E1B] block mb-1">Recommended Field Dosage:</strong>
+            <p id="modal-prod-dosage" class="text-[#575E54] bg-[#FAF9F5] p-2.5 rounded-lg border border-[#EDE8DC]"></p>
+          </div>
+          <div>
+            <strong class="text-[#1C1E1B] block mb-1">Pre-Harvest Interval (PHI):</strong>
+            <p id="modal-prod-phi" class="text-[#575E54] bg-[#FAF9F5] p-2.5 rounded-lg border border-[#EDE8DC]"></p>
+          </div>
+        </div>
+
+        <div>
+          <strong class="text-[#1C1E1B] block mb-1">Mandatory Protective Gear (PPE):</strong>
+          <div id="modal-prod-ppe-list" class="flex flex-wrap gap-2 pt-1"></div>
+        </div>
+
+        <div>
+          <strong class="text-[#1C1E1B] block mb-1">Suitable Crops & Target Diseases:</strong>
+          <p class="text-[#575E54]"><strong>Crops:</strong> <span id="modal-prod-crops"></span></p>
+          <p class="text-[#575E54] mt-1"><strong>Targets:</strong> <span id="modal-prod-targets"></span></p>
+        </div>
+
+        <div>
+          <strong class="text-[#1C1E1B] block mb-1">Authorized CIBRC Distributor:</strong>
+          <p id="modal-prod-seller" class="text-[#575E54]"></p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-[#FEF2F2] border border-[#FECACA] text-[11px] text-[#991B1B] leading-relaxed">
+          <strong class="block mb-0.5">Statutory Regulatory Notice:</strong>
+          <span id="modal-prod-notice"></span>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-[#E8E5DC] flex space-x-3 justify-end items-center">
+        <button onclick="document.getElementById('product-details-modal').classList.add('hidden')" class="px-5 py-2.5 rounded-xl bg-[#F2EFE9] text-[#1C1E1B] text-xs font-semibold hover:bg-[#E4E0D5] transition">Close</button>
+        <button id="modal-add-cart-btn" class="px-5 py-2.5 rounded-xl bg-[#133E2B] text-white text-xs font-bold hover:bg-[#1A523A] transition shadow-sm">+ Add to Cart</button>
+        <button id="modal-buy-now-btn" class="px-6 py-2.5 rounded-xl bg-[#16A34A] text-white text-xs font-bold hover:bg-[#15803D] transition shadow-sm flex items-center space-x-1.5">
+          <span>⚡</span>
+          <span>Buy Now</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= ADD FIELD PARCEL MODAL ================= -->
+  <div id="add-parcel-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="farm-card w-full max-w-md bg-white p-6 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-[#E8E5DC]">
+        <h3 class="font-bold text-base text-[#1C1E1B]">Add New Field Parcel</h3>
+        <button id="close-parcel-modal-btn" class="text-[#858D82] hover:text-black">✕</button>
+      </div>
+
+      <form id="add-parcel-form" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-[#1C1E1B] mb-1">Parcel Name / Landmark</label>
+          <input type="text" id="new-parcel-name" required placeholder="e.g. Khet 4 - West Tubewell" class="w-full px-3 py-2 rounded-lg border border-[#D5D0C2]">
+        </div>
+        <div>
+          <label class="block font-bold text-[#1C1E1B] mb-1">Land Area (Acres)</label>
+          <input type="number" step="0.5" id="new-parcel-acres" required value="4.0" class="w-full px-3 py-2 rounded-lg border border-[#D5D0C2]">
+        </div>
+        <div>
+          <label class="block font-bold text-[#1C1E1B] mb-1">Current Crop</label>
+          <input type="text" id="new-parcel-crop" required value="Wheat" class="w-full px-3 py-2 rounded-lg border border-[#D5D0C2]">
+        </div>
+        <div>
+          <label class="block font-bold text-[#1C1E1B] mb-1">Crop Variety</label>
+          <input type="text" id="new-parcel-variety" required value="PBW-826" class="w-full px-3 py-2 rounded-lg border border-[#D5D0C2]">
+        </div>
+
+        <div class="pt-3 flex space-x-2 justify-end">
+          <button type="button" onclick="document.getElementById('add-parcel-modal').classList.add('hidden')" class="px-4 py-2 rounded-lg bg-[#F2EFE9] text-[#1C1E1B] font-semibold">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-[#133E2B] text-white font-bold">Save Parcel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SHOPPING CART DRAWER ================= -->
+  <div id="cart-drawer" onclick="if(event.target === this) closeCartDrawer()" class="hidden fixed inset-0 z-50 overflow-hidden bg-black/40 backdrop-blur-sm flex justify-end">
+    <div class="w-full max-w-md bg-[#FAF9F5] h-full shadow-2xl flex flex-col justify-between" onclick="event.stopPropagation()">
+      
+      <div class="p-5 bg-white border-b border-[#E8E5DC] flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">🛒</span>
+          <h3 class="font-bold text-base text-[#1C1E1B]" data-i18n="cart_title">Your Kisan Shopping Cart</h3>
+        </div>
+        <button id="close-cart-btn" onclick="closeCartDrawer()" class="p-2 text-[#858D82] hover:text-black cursor-pointer">✕</button>
+      </div>
+
+      <div id="cart-drawer-items" class="flex-1 p-5 overflow-y-auto space-y-3"></div>
+
+      <div class="p-5 bg-white border-t border-[#E8E5DC] space-y-3 text-xs">
+        <div class="flex justify-between text-[#575E54]">
+          <span data-i18n="cart_subtotal">Subtotal</span>
+          <span id="cart-subtotal-val" class="font-bold text-[#1C1E1B]">₹0</span>
+        </div>
+        <div class="flex justify-between text-[#16A34A] font-medium">
+          <span data-i18n="cart_subsidy">Kisan Subsidy / Discount (Coupon KISAN2026)</span>
+          <span id="cart-subsidy-val">-₹0</span>
+        </div>
+        <div class="flex justify-between text-base font-extrabold text-[#133E2B] pt-2 border-t border-[#F0ECE1]">
+          <span data-i18n="cart_total">Total Amount</span>
+          <span id="cart-total-val">₹0</span>
+        </div>
+
+        <button id="cart-checkout-btn" onclick="openUpiPaymentModal()" class="w-full py-3.5 rounded-xl bg-[#133E2B] text-white font-bold text-sm hover:bg-[#1A523A] transition shadow-md flex items-center justify-center space-x-2 cursor-pointer">
+          <span data-i18n="cart_checkout">Proceed to Kisan Checkout</span>
+          <span>→</span>
+        </button>
+        <p class="text-[11px] text-center text-[#858D82]">Direct UPI Settlement to your specified account • NPCI Verified</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= NOTIFICATIONS DRAWER ================= -->
+  <div id="notif-drawer" class="hidden fixed top-20 right-4 sm:right-8 z-50 w-80 sm:w-96 farm-card p-5 bg-white shadow-2xl space-y-3">
+    <div class="flex items-center justify-between pb-2 border-b border-[#E8E5DC]">
+      <h4 class="font-bold text-sm text-[#1C1E1B]">Active Regional Alerts</h4>
+      <button id="close-notif-btn" onclick="toggleNotifDrawer()" class="text-xs text-[#858D82] cursor-pointer">✕</button>
+    </div>
+    <div class="space-y-2 text-xs">
+      <div class="p-3 rounded-lg bg-[#FEF2F2] border border-[#FECACA] text-[#991B1B]">
+        <strong>🚨 Stripe Rust Spore Warning:</strong> High fog and dew in foothill zones (Ropar/Hoshiarpur). Inspect wheat fields immediately.
+      </div>
+      <div class="p-3 rounded-lg bg-[#FFFBEB] border border-[#FDE68A] text-[#92400E]">
+        <strong>⚠️ Rain Alert for Saturday:</strong> Western disturbance activity expected. Delay urea broadcasting by 48 hours.
+      </div>
+      <div class="p-3 rounded-lg bg-[#DCFCE7] border border-[#BBF7D0] text-[#166534]">
+        <strong>🌾 Mandi Surge:</strong> Wheat prices at Khanna APMC up +₹35/qtl above current MSP.
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION ================= -->
+  <div id="app-toast" class="fixed bottom-20 md:bottom-8 right-6 z-50 px-4 py-3 rounded-xl bg-[#133E2B] text-white text-xs font-bold shadow-xl transition-opacity duration-300 opacity-0 pointer-events-none flex items-center space-x-2">
+    <span>🌾</span>
+    <span>Notification</span>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="mt-20 border-t border-[#E8E5DC] bg-[#FAF9F5] py-12 text-xs text-[#575E54]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+          <img src="/static/img/logo.png" alt="FIELDAI Logo" class="w-9 h-9 rounded-xl object-cover shadow-sm">
+          <span class="font-bold text-base text-[#133E2B]">FIELDAI • KhetAI (ਖੇਤAI / खेतAI)</span>
+        </div>
+        <div class="flex flex-wrap gap-4 text-xs font-medium text-[#133E2B]">
+          <a href="#diagnose" onclick="switchTab('diagnose')">Crop Doctor</a>
+          <a href="#assistant" onclick="switchTab('assistant')">AI Assistant</a>
+          <a href="#mandi" onclick="switchTab('mandi')">Live Mandi Rates</a>
+          <a href="#weather" onclick="switchTab('weather')">Weather Radar</a>
+          <a href="#shop" onclick="switchTab('shop')">Approved Pesticides</a>
+          <a href="#farm" onclick="switchTab('farm')">My Farm Parcels</a>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-[#E8E5DC] flex flex-col md:flex-row items-center justify-between gap-3 text-[11px] text-[#858D82]">
+        <p data-i18n="footer_copyright">© 2026 FIELDAI Technologies Pvt. Ltd. Dedicated to the Prosperity of Indian Farmers.</p>
+        <p data-i18n="footer_disclaimer">Agricultural recommendations are aligned with CIBRC and ICAR guidelines. Always read actual product labels before application.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- QR Helper & Core App Scripts -->
+  <script src="/static/js/qr-helper.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

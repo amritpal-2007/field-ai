@@ -1,0 +1,193 @@
+/* FIELDAI - Clean Fintech/SaaS Agricultural Style System */
+
+:root {
+  --primary-forest: #133E2B;
+  --primary-forest-dark: #0D2C1E;
+  --primary-forest-light: #1A523A;
+  --leaf-green: #16A34A;
+  --leaf-green-light: #22C55E;
+  --cream-bg: #FBFBF7;
+  --cream-card: #FFFFFF;
+  --beige-surface: #F2EFE9;
+  --beige-border: #E4E0D5;
+  --charcoal-text: #1C1E1B;
+  --charcoal-muted: #575E54;
+  --charcoal-faint: #858D82;
+  --amber-alert: #D97706;
+  --red-alert: #DC2626;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--cream-bg);
+  color: var(--charcoal-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Glass & Card Elevators */
+.glass-header {
+  background: rgba(251, 251, 247, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(228, 224, 213, 0.8);
+}
+
+.glass-badge {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(228, 224, 213, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(28, 30, 27, 0.06);
+}
+
+.farm-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E5DC;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 4px 12px 0 rgba(19, 62, 43, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.farm-card:hover {
+  border-color: #D3CEBF;
+  box-shadow: 0 8px 24px 0 rgba(19, 62, 43, 0.07);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F1EA;
+}
+::-webkit-scrollbar-thumb {
+  background: #D1CCBE;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B6B09F;
+}
+
+/* Mobile Bottom Navigation */
+.mobile-nav-bar {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid #E8E5DC;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* Scanning Animation Overlay */
+@keyframes scanSweep {
+  0% {
+    top: 0%;
+    opacity: 0.8;
+  }
+  50% {
+    top: 96%;
+    opacity: 1;
+  }
+  100% {
+    top: 0%;
+    opacity: 0.8;
+  }
+}
+
+.scan-laser {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #22C55E, #4ADE80, #22C55E, transparent);
+  box-shadow: 0 0 15px 3px rgba(34, 197, 94, 0.6);
+  animation: scanSweep 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Pulse Glows */
+@keyframes pulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.15);
+  }
+}
+
+.pulse-dot {
+  animation: pulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Floating Badges micro-float */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.floating-preview-1 {
+  animation: floatGentle 4.5s ease-in-out infinite;
+}
+.floating-preview-2 {
+  animation: floatGentle 5s ease-in-out infinite 0.8s;
+}
+.floating-preview-3 {
+  animation: floatGentle 5.4s ease-in-out infinite 1.6s;
+}
+.floating-preview-4 {
+  animation: floatGentle 4.8s ease-in-out infinite 2.2s;
+}
+
+/* Leaf Bounding Box Overlay Canvas */
+.canvas-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.canvas-wrapper canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+}
+
+/* Chat bubble styling */
+.chat-bubble-farmer {
+  background-color: #133E2B;
+  color: #FFFFFF;
+  border-radius: 18px 18px 4px 18px;
+}
+
+.chat-bubble-ai {
+  background-color: #FFFFFF;
+  color: #1C1E1B;
+  border: 1px solid #E8E5DC;
+  border-radius: 18px 18px 18px 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+/* Micro interaction active states */
+.tab-btn.active {
+  background-color: #133E2B;
+  color: #FFFFFF;
+  border-color: #133E2B;
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  .hero-headline {
+    font-size: 2.25rem !important;
+    line-height: 2.75rem !important;
+  }
+}

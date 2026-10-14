@@ -1,0 +1,224 @@
+[
+  {
+    "invoice_no": "INV-2026-55719",
+    "order_id": "KMP-476765",
+    "utr_ref": "429192577055",
+    "amount_paid": 890.0,
+    "taxable_amount": 847.62,
+    "cgst": 21.19,
+    "sgst": 21.19,
+    "upi_handle": "GILLAMRITPAL2007-1@OKICICI",
+    "payment_method": "UPI Instant Settlement (NPCI)",
+    "paid_at": "14 Oct 2026, 07:01 PM",
+    "farmer_name": "Kisan (+91 94783...)",
+    "delivery_address": "Gill Kalan, Ludhiana, Punjab",
+    "gstin": "03AABCF8912P1ZN",
+    "cibrc_verification": "CIBRC/AGRI-RETAIL/2026/0942",
+    "items": [
+      {
+        "active_ingredient": "Tebuconazole 50% + Trifloxystrobin 25% WG",
+        "brand": "Bayer CropScience",
+        "category": "Fungicide",
+        "category_hi": "फफूंदनाशक",
+        "category_pa": "ਉੱਲੀਨਾਸ਼ਕ",
+        "cibrc_reg": "CIR-58902/2008/Tebuconazole+Trifloxystrobin(WG)-314",
+        "delivery_est": "1-2 business days",
+        "dosage": "0.5 g - 0.7 g per liter of water (100-140 g in 200 liters water per acre)",
+        "dosage_hi": "0.5 - 0.7 ग्राम प्रति लीटर पानी (100-140 ग्राम प्रति एकड़)",
+        "dosage_pa": "0.5 - 0.7 ਗ੍ਰਾਮ ਪ੍ਰਤੀ ਲੀਟਰ ਪਾਣੀ (100-140 ਗ੍ਰਾਮ ਪ੍ਰਤੀ ਏਕੜ)",
+        "id": "prod_nativo",
+        "image": "/static/img/products/nativo.png",
+        "in_stock": true,
+        "mrp": 1050,
+        "name": "Nativo 75 WG Broad-Spectrum Fungicide",
+        "name_hi": "नेटिवो 75 WG फफूंदनाशक",
+        "name_pa": "ਨੈਟਿਵੋ 75 WG ਉੱਲੀਨਾਸ਼ਕ",
+        "pack_size": "100 g",
+        "phi_days": 21,
+        "price": 890,
+        "rating": 4.9,
+        "regulatory_notice": "Approved by CIBRC for blast and rust control. Wear protective gear while preparing spray tank suspension.",
+        "reviews_count": 512,
+        "safety_ppe": [
+          "Chemical Gloves",
+          "Protective Apron",
+          "Face Shield"
+        ],
+        "seller": "Bayer Agro Hub, Karnal",
+        "suitable_crops": [
+          "Rice / Paddy",
+          "Wheat",
+          "Tomato",
+          "Chilli",
+          "Mango",
+          "Grapes"
+        ],
+        "target_diseases": [
+          "Rice Blast",
+          "Sheath Blight",
+          "Yellow Rust",
+          "Early Blight",
+          "Anthracnose"
+        ],
+        "qty": 1
+      }
+    ],
+    "status": "DISPATCHED",
+    "est_delivery": "Within 24-48 hours by Kisan Kendra Express"
+  },
+  {
+    "invoice_no": "INV-2026-47381",
+    "order_id": "KMP-774910",
+    "utr_ref": "COD-9918237192",
+    "amount_paid": 320.0,
+    "taxable_amount": 304.76,
+    "cgst": 7.62,
+    "sgst": 7.62,
+    "upi_handle": "gillamritpal2007-1@okicici",
+    "payment_method": "Cash on Delivery (Kisan Kendra Express)",
+    "paid_at": "14 Oct 2026, 06:15 PM",
+    "farmer_name": "Amritpal Singh Gill",
+    "delivery_address": "Gill Kalan, Ludhiana, Punjab",
+    "gstin": "03AABCF8912P1ZN",
+    "cibrc_verification": "CIBRC/AGRI-RETAIL/2026/0942",
+    "items": [
+      {
+        "id": "katyayani_m45",
+        "name": "Mancozeb 75% WP",
+        "price": 320,
+        "qty": 1
+      }
+    ],
+    "status": "DISPATCHED",
+    "est_delivery": "Within 24-48 hours by Kisan Kendra Express"
+  },
+  {
+    "invoice_no": "INV-2026-25130",
+    "order_id": "KMP-992102",
+    "utr_ref": "KCC-4829104812",
+    "amount_paid": 550.0,
+    "taxable_amount": 523.81,
+    "cgst": 13.1,
+    "sgst": 13.1,
+    "upi_handle": "gillamritpal2007-1@okicici",
+    "payment_method": "Kisan Credit Card (PM-KISAN RuPay)",
+    "paid_at": "14 Oct 2026, 06:15 PM",
+    "farmer_name": "Amritpal Singh Gill",
+    "delivery_address": "Gill Kalan, Ludhiana, Punjab",
+    "gstin": "03AABCF8912P1ZN",
+    "cibrc_verification": "CIBRC/AGRI-RETAIL/2026/0942",
+    "items": [
+      {
+        "id": "nano_urea",
+        "name": "IFFCO Nano Urea",
+        "price": 225,
+        "qty": 2
+      }
+    ],
+    "status": "DISPATCHED",
+    "est_delivery": "Within 24-48 hours by Kisan Kendra Express"
+  },
+  {
+    "invoice_no": "INV-2026-25130",
+    "order_id": "KMP-992102",
+    "utr_ref": "KCC-4829104812",
+    "amount_paid": 550.0,
+    "taxable_amount": 523.81,
+    "cgst": 13.1,
+    "sgst": 13.1,
+    "upi_handle": "gillamritpal2007-1@okicici",
+    "payment_method": "Kisan Credit Card (PM-KISAN RuPay)",
+    "paid_at": "14 Oct 2026, 06:15 PM",
+    "farmer_name": "Amritpal Singh Gill",
+    "delivery_address": "Gill Kalan, Ludhiana, Punjab",
+    "gstin": "03AABCF8912P1ZN",
+    "cibrc_verification": "CIBRC/AGRI-RETAIL/2026/0942",
+    "items": [
+      {
+        "id": "nano_urea",
+        "name": "IFFCO Nano Urea",
+        "price": 225,
+        "qty": 2
+      }
+    ],
+    "status": "DISPATCHED",
+    "est_delivery": "Within 24-48 hours by Kisan Kendra Express"
+  },
+  {
+    "invoice_no": "INV-2026-22797",
+    "order_id": "KMP-109361",
+    "utr_ref": "429137808599",
+    "amount_paid": 840.0,
+    "taxable_amount": 800.0,
+    "cgst": 20.0,
+    "sgst": 20.0,
+    "upi_handle": "gillamritpal2007-1@okicici",
+    "payment_method": "UPI Instant Settlement (NPCI)",
+    "paid_at": "14 Oct 2026, 06:15 PM",
+    "farmer_name": "Amritpal Singh Gill",
+    "delivery_address": "Gill Kalan, Ludhiana, Punjab",
+    "gstin": "03AABCF8912P1ZN",
+    "cibrc_verification": "CIBRC/AGRI-RETAIL/2026/0942",
+    "items": [
+      {
+        "id": "tilt_25_ec",
+        "name": "Tilt 25% EC",
+        "price": 420,
+        "qty": 2
+      }
+    ],
+    "status": "DISPATCHED",
+    "est_delivery": "Within 24-48 hours by Kisan Kendra Express"
+  },
+  {
+    "invoice_no": "INV-2026-22797",
+    "order_id": "KMP-109361",
+    "utr_ref": "429137808599",
+    "amount_paid": 840.0,
+    "taxable_amount": 800.0,
+    "cgst": 20.0,
+    "sgst": 20.0,
+    "upi_handle": "gillamritpal2007-1@okicici",
+    "payment_method": "UPI Instant Settlement (NPCI)",
+    "paid_at": "14 Oct 2026, 06:15 PM",
+    "farmer_name": "Amritpal Singh Gill",
+    "delivery_address": "Gill Kalan, Ludhiana, Punjab",
+    "gstin": "03AABCF8912P1ZN",
+    "cibrc_verification": "CIBRC/AGRI-RETAIL/2026/0942",
+    "items": [
+      {
+        "id": "tilt_25_ec",
+        "name": "Tilt 25% EC",
+        "price": 420,
+        "qty": 2
+      }
+    ],
+    "status": "DISPATCHED",
+    "est_delivery": "Within 24-48 hours by Kisan Kendra Express"
+  },
+  {
+    "invoice_no": "INV-2026-84920",
+    "order_id": "KMP-782194",
+    "utr_ref": "429188291048",
+    "amount_paid": 840.0,
+    "upi_handle": "gillamritpal2007-1@okicici",
+    "payment_method": "UPI Instant Settlement (NPCI)",
+    "paid_at": "14 Oct 2026, 02:15 PM",
+    "farmer_name": "Amritpal Singh Gill",
+    "delivery_address": "Gill Kalan, Ludhiana, Punjab",
+    "gstin": "03AABCF8912P1ZN",
+    "cibrc_verification": "CIBRC/AGRI-RETAIL/2026/0942",
+    "items": [
+      {
+        "id": "tilt_25_ec",
+        "name": "Tilt 25% EC (Propiconazole)",
+        "brand": "Syngenta India",
+        "pack_size": "500 ml",
+        "price": 420,
+        "qty": 2
+      }
+    ],
+    "status": "DISPATCHED",
+    "est_delivery": "Within 24 hours by Kisan Kendra Express"
+  }
+]
